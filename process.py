@@ -24,12 +24,9 @@ HEAD = r"""\input{preamble.tex}
 \tableofcontents
 \end{multicols}
 \pagestyle{fancy}
-
-\begin{multicols}{2}
 """
 
-FOOT = r"""\end{multicols} % End two-column layout
-\vfill
+FOOT = r"""\vfill
 \setlength{\parindent}{0cm}
 \fontsize{8}{10}\selectfont{This work is in the public domain. \\The text source is available at: \underline{https://ebible.org/Scriptures/details.php?id=grcbrent}. \\This PDF file created by MrGreekGeek, available from \underline{https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project}.}
 
@@ -49,7 +46,7 @@ with open(sys.argv[1], "r", encoding="utf-8") as input:
         latex = re.sub(r'ΠΡΟΣΕΥΧ (ἈΜΒΑΚΟΥΜ)', r'ΠΡΟΣΕΥΧΗ \1', latex) # Fix missing eta from Habakkuk 3:1
 
         # Set up chapter names and multi-columns
-        latex = re.sub(r'\{\\MT (.*)', r'\\end{multicols}\n\\def\\book{\1}\n\\biblebook{\1}\n\\begin{multicols}{2}', latex, flags=re.M)
+        latex = re.sub(r'\{\\MT (.*)', r'\\def\\book{\1}\n\\biblebook{\1}', latex, flags=re.M)
 
         latex = re.sub(r'ChapOne\{1\}', r'ch{1}', latex, flags=re.M)
         latex = re.sub(r'OneChap', r'ch{1}', latex, flags=re.M)
