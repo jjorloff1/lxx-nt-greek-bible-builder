@@ -20,3 +20,8 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Add chapter:verse references to the running header like most Bibles have 
 - [x] Keep all Psalm headings with the following paragraphs
 - [ ] Add front matter (copyright, editor, year, etc)
+
+## TODO: Jesse
+- [ ] Single column
+- [ ] Drop Cap
+- [ ] Fetch and add NT

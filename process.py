@@ -11,7 +11,18 @@ HEAD = r"""\input{preamble.tex}
 \maketitle
 
 \pagestyle{empty}
+\begingroup
+\centering
+{\huge Table of Contents \par}
+\vspace{1em}
+\endgroup
+
+\begin{multicols}{2}
+\makeatletter
+\renewcommand{\tableofcontents}{\@starttoc{toc}}
+\makeatother
 \tableofcontents
+\end{multicols}
 \pagestyle{fancy}
 
 \begin{multicols}{2}
