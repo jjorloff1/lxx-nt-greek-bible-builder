@@ -1,5 +1,16 @@
 import re,sys
 
+# Pattern to match the start of each book's first chapter
+pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\VerseOne\{1\}\s*)([Α-Ωα-ω\u0370-\u03FF\u1F00-\u1FFF])([^\s]+)'
+
+# Replacement function to wrap the first Greek letter in lettrine with color
+def lettrine_replacer(match):
+    prefix = match.group(1)
+    first_letter = match.group(2)
+    rest_of_word = match.group(3)
+    # Use your color and lettrine settings
+    return f'{prefix}\\lettrine[lines=2, loversize=0.2, nindent=0em, findent=.25em]{{\\textcolor{{bookheadingcolor}}{{{first_letter}}}}}{{{rest_of_word}}}'
+
 HEAD = r"""\input{preamble.tex}
 
 \title{Η ΠΑΛΑΙΑ ΔΙΑΘΗΚΗ}
@@ -37,6 +48,9 @@ with open(sys.argv[1], "r", encoding="utf-8") as input:
     with open(sys.argv[2], "w", encoding="utf-8") as output:           
         latex = input.read()
 
+        # Apply the DropCap replacement
+        latex = re.sub(pattern, lettrine_replacer, latex)
+
         # Fix typos/issues in the source text
         latex = re.sub(r',,', r',', latex, flags=re.M)              # Exodus 33:13
         latex = re.sub(r'ʼΑλλʼ', r'Ἀλλ’', latex, flags=re.M)        # Psalm 1:2
@@ -45,11 +59,11 @@ with open(sys.argv[1], "r", encoding="utf-8") as input:
         latex = re.sub(r'\n\\VS\{2\}(ὁπότε ἐνεπύρισε .*?\.)', r' \1', latex) # Remove verse number from Psalm 59 header
         latex = re.sub(r'ΠΡΟΣΕΥΧ (ἈΜΒΑΚΟΥΜ)', r'ΠΡΟΣΕΥΧΗ \1', latex) # Fix missing eta from Habakkuk 3:1
 
-        # Set up chapter names and multi-columns
+        # Set up chapter names
         latex = re.sub(r'\{\\MT (.*)', r'\\def\\book{\1}\n\\biblebook{\1}', latex, flags=re.M)
 
-        latex = re.sub(r'ChapOne\{1\}', r'ch{1}', latex, flags=re.M)
-        latex = re.sub(r'OneChap', r'ch{1}', latex, flags=re.M)
+        latex = re.sub(r'\\ChapOne\{1\}', r'', latex, flags=re.M)
+        latex = re.sub(r'\\OneChap', r'', latex, flags=re.M)
         latex = re.sub(r'\\VerseOne\{2a\}', r'', latex, flags=re.M)
 
         # Clean up xetex formatting

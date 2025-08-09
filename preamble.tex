@@ -89,3 +89,26 @@
 }{%
     \end{minipage}%
 }
+
+% Chapter and Heading Styles
+\usepackage{xcolor}
+\definecolor{bookheadingcolor}{HTML}{9B3A3F}
+
+\let\oldbiblebook\biblebook
+\renewcommand{\biblebook}[1]{\textcolor{bookheadingcolor}{\oldbiblebook{#1}}}
+
+\usepackage{marginnote}
+\let\oldch\ch
+\renewcommand{\ch}[1]{%
+  \setcounter{mychapter}{#1}%
+  \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%
+  \leavevmode\llap{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}\hspace*{2em}}}%
+}
+
+\usepackage{lettrine}
+% \renewcommand{\ch}[1]{%
+%   \setcounter{mychapter}{#1}%
+%   \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%
+%   \marginnote[\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}]{}%
+% }
+% \renewcommand{\ch}[1]{\textcolor{bookheadingcolor}{\oldch{#1}}}
