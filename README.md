@@ -27,8 +27,17 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
   - [x] Make second line line up
   - Drop p2 down if a verse number would invate in the space. 2 Kings, ΙΩΗΛ, ΝΑΟΥΜ, ΑΜΒΑΚΟΥΜ, ΜΑΛΑΧΙΑΣ -- \hspace*{3em} seems to do the job
   - [x] Dropcap moved down line from chapter 1 number.  Align or remove ch 1 number
-  - ΘΡΗΝΟΙ ΙΕΡΕΜΙΟΥ
-  - No dropcap: ΜΑΚΚΑΒΑΙΩΝ Γʹ
+  - [ ] Dropcap not on first line:
+    - [ ] ΘΡΗΝΟΙ ΙΕΡΕΜΙΟΥ - drop cap at 1st labeled verse, but probably want it on first real line
+    - [ ] ΣΟΦΙΑ ΣΕΙΡΑΧ - Maybe ΠΡΟΛΟΓΟΣ needs a different style
+  - [ ] No dropcap: 
+    - [x] ΜΑΚΚΑΒΑΙΩΝ Γʹ
+    - [ ] ΕΣΘΗΡ - Has quotes from alternate text I guess
+    - [ ] ΨΑΛΜΟΙ - Probably don't want drop caps
 - [ ] Fetch and add NT
 - [ ] Make verse numbers light grey
 - [ ] Psalms formatting
+  - [ ] chapter margin not right because of centering
+  - [ ] line breaks in psalms
+- [ ] Page size (fit reader size)
+- [ ] If I ever change page size ΜΑΛΑΧΙΑΣ dropcap will probably Need to be reset in the source tex

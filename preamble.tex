@@ -23,6 +23,7 @@
 \hyphenpenalty=2000
 \emergencystretch=1pt
 \setlength{\parindent}{.2in} % Set paragraph indentation
+\setlength{\parskip}{0\baselineskip}
 
 \usepackage{titlesec}
 \renewcommand{\thechapter}{} % remove numbers from chapter
@@ -106,6 +107,9 @@
 }
 
 \usepackage{lettrine}
+\usepackage{calc}
+
+\newcommand{\postdropcapindent}{\hspace*{.2in + .8em}}
 % \renewcommand{\ch}[1]{%
 %   \setcounter{mychapter}{#1}%
 %   \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%

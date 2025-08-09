@@ -1,7 +1,7 @@
 import re,sys
 
 # Pattern to match the start of each book's first chapter
-pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\VerseOne\{1\}\s*)([Α-Ωα-ω\u0370-\u03FF\u1F00-\u1FFF])([^\s]+)'
+pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\VerseOne\{1\}\s*)([Α-Ωα-ω\u0370-\u03FF\u1F00-\u1FFF])([^\s]*)'
 
 # Replacement function to wrap the first Greek letter in lettrine with color
 def lettrine_replacer(match):
