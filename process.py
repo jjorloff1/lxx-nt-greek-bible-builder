@@ -1,7 +1,6 @@
 import re,sys
 
-# Pattern to match the start of each book's first chapter
-pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\VerseOne\{1\}\s*)([Α-Ωα-ω\u0370-\u03FF\u1F00-\u1FFF])([^\s]*)'
+first_chapter_pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\VerseOne\{1\}\s*)([Α-Ωα-ω\u0370-\u03FF\u1F00-\u1FFF])([^\s]*)'
 
 # Replacement function to wrap the first Greek letter in lettrine with color
 def lettrine_replacer(match):
@@ -48,8 +47,9 @@ with open(sys.argv[1], "r", encoding="utf-8") as input:
     with open(sys.argv[2], "w", encoding="utf-8") as output:           
         latex = input.read()
 
-        # Apply the DropCap replacement
-        latex = re.sub(pattern, lettrine_replacer, latex)
+        # Apply transformations to the text
+        latex = re.sub(r'[“|”]',"", latex) # eliminate custom quotes, must be before first chapter
+        latex = re.sub(first_chapter_pattern, lettrine_replacer, latex) # set up dropcaps
 
         # Fix typos/issues in the source text
         latex = re.sub(r',,', r',', latex, flags=re.M)              # Exodus 33:13

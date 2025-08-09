@@ -32,10 +32,10 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
     - [ ] ΣΟΦΙΑ ΣΕΙΡΑΧ - Maybe ΠΡΟΛΟΓΟΣ needs a different style
   - [ ] No dropcap: 
     - [x] ΜΑΚΚΑΒΑΙΩΝ Γʹ
-    - [ ] ΕΣΘΗΡ - Has quotes from alternate text I guess
+    - [x] ΕΣΘΗΡ - Has quotes from alternate text I guess
     - [ ] ΨΑΛΜΟΙ - Probably don't want drop caps
 - [ ] Fetch and add NT
-- [ ] Make verse numbers light grey
+- [x] Make verse numbers light grey
 - [ ] Psalms formatting
   - [ ] chapter margin not right because of centering
   - [ ] line breaks in psalms
