@@ -67,6 +67,11 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
             # Remove stray paragraph marks
             word = word.replace('¶', '')
 
+            # Handle poetry quote starts
+            poetry_quote_starts = False
+            if '<pm>¬</pm>' in word_html:
+                poetry_quote_starts = True
+                word = word.replace('<pm>¬</pm>', '¬')
             # Ensure book exists
             if book_num not in book_data:
                 book_data[book_num] = {}
@@ -78,7 +83,7 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                 book_data[book_num][chap_num][verse_num] = []
 
             # Add word to verse
-            book_data[book_num][chap_num][verse_num].append((word, paragraph_marker_next))
+            book_data[book_num][chap_num][verse_num].append((word, paragraph_marker_next, poetry_quote_starts))
             paragraph_marker_next = False
 
     # Set of single-chapter NT books by book number
@@ -112,8 +117,7 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                 else:
                     line = fr'\VS{{{verse_num}}}'
 
-                verse_text = build_verse_text(words)
-                tex_lines.append(line + verse_text.strip())
+                tex_lines.append(build_line_text(line, words))
 
                 should_add_paragraph_marker = words[-1][1] if words else False
             tex_lines.append(r'\par }')
@@ -140,14 +144,13 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                         else:
                             line = fr'\VS{{{verse_num}}}'
 
-                        verse_text = build_verse_text(words)
-                        tex_lines.append(line + verse_text.strip())
+                        tex_lines.append(build_line_text(line, words))
 
                         should_add_paragraph_marker = words[-1][1] if words else False
                 else:
                     # Add blank line before new chapter
                     tex_lines.append('')
-                    tex_lines.append(r'\par }\Chap{' + str(chap_num) + r'}{\PP \VerseOne{1}' + ' '.join(word for word, _ in verses.get(1, [])))
+                    tex_lines.append(r'\par }\Chap{' + str(chap_num) + r'}{\PP \VerseOne{1}' + ' '.join(word for word, _, _ in verses.get(1, [])))
                     
                     should_add_paragraph_marker = False
                     for verse_num, words in verses.items():
@@ -158,8 +161,7 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                         else:
                             line = fr'\VS{{{verse_num}}}'
 
-                        verse_text = build_verse_text(words)
-                        tex_lines.append(line + verse_text.strip())
+                        tex_lines.append(build_line_text(line, words))
 
                         should_add_paragraph_marker = words[-1][1] if words else False
             tex_lines.append(r'\par }')
@@ -170,12 +172,36 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
 
 def build_verse_text(words):
     verse_text = ''
-    for i, (word, pm_next) in enumerate(words):
+    in_quote = False
+
+    for i, (word, pm_next, poetry_quote_starts) in enumerate(words):
+        if poetry_quote_starts:
+            # in our data set, I never see a paragraph mark in immediately preceding a quote mark
+            if i > 0:
+                verse_text += '\n' # if first word in new verse, we should already be on a new line.
+            verse_text += '\\par }{\\PP \\begin{quote}'
+            in_quote = True
+
+        verse_text += word
+
+        # Poetry quote ends: next word starts poetry quote, or paragraph break, or end of verse
+        next_word_starts_new_poetry_quote = (i + 1 < len(words)) and words[i + 1][2]
+        if in_quote and (next_word_starts_new_poetry_quote or pm_next or i == len(words) - 1):
+            verse_text += '\\end{quote}'
+            in_quote = False
+
         if i != len(words) - 1 and pm_next:
-            verse_text += word + '\n\\par }{\\PP '
+            verse_text += '\n\\par }{\\PP '
         else:
-            verse_text += word + ' '
+            verse_text += ' '
     return verse_text
+
+def build_line_text(line_prefix, words):
+    verse_text = build_verse_text(words)
+    line_text = line_prefix + verse_text.strip()
+
+    # Handle special case for poetry quotes
+    return re.sub(r'\\VS\{(\d+)\}\\par \}\{\\PP \\begin\{quote\}', r'\\par }{\\PP \\begin{quote} \\VS{\1}', line_text)
 
 if __name__ == "__main__":
     import sys

@@ -113,6 +113,10 @@
 \usepackage{calc}
 
 \newcommand{\postdropcapindent}{\hspace*{.2in + .8em}}
+
+\usepackage{etoolbox}
+% \AtBeginEnvironment{quote}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{quote}{\vspace{-.5\baselineskip}}
 % \renewcommand{\ch}[1]{%
 %   \setcounter{mychapter}{#1}%
 %   \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%
