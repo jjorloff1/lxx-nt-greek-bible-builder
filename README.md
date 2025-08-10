@@ -41,3 +41,4 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Page size (fit reader size)
 - [x] If I ever change page size ΜΑΛΑΧΙΑΣ dropcap will probably Need to be reset in the source tex
 - [ ] Fetch and add NT
+- [ ] Word out in margins.
