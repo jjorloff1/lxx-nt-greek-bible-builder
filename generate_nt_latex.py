@@ -119,7 +119,7 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                     first_para = True
                     for verse_num, words in verses.items():
                         if first_para and verse_num == 1:
-                            line = r'\par }\ChapOne{{1}}{{\PP \VerseOne{{1}}}'
+                            line = r'\par }\ChapOne{1}{\PP \VerseOne{1}'
                             first_para = False
                             verse_text = ' '.join(word for word, _ in words)
                             tex_lines.append(line + verse_text)
@@ -134,7 +134,7 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                 else:
                     # Add blank line before new chapter
                     tex_lines.append('')
-                    tex_lines.append(fr'\Chap{{{chap_num}}}\VerseOne{{1}}' + ' '.join(word for word, _ in verses.get(1, [])))
+                    tex_lines.append(r'\par }\Chap{' + str(chap_num) + r'}{\PP \VerseOne{1}' + ' '.join(word for word, _ in verses.get(1, [])))
                     for verse_num, words in verses.items():
                         if verse_num == 1:
                             continue  # Already handled above
