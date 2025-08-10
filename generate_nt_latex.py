@@ -96,16 +96,20 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
         if book_num in single_chapter_books:
             # Single-chapter book formatting (MAN_src.tex model)
             first_para = True
+            should_add_paragraph_marker = False
             for verse_num, words in chapters.get(1, {}).items():
                 if first_para and verse_num == 1:
                     line = r'\par }\OneChap {\PP \VerseOne{1}'
                     first_para = False
-                elif any(pm for _, pm in words):
+                elif should_add_paragraph_marker:
                     line = fr'\par }}{{\PP \VS{{{verse_num}}}'
                 else:
                     line = fr'\VS{{{verse_num}}}'
-                verse_text = ' '.join(word for word, _ in words)
-                tex_lines.append(line + verse_text)
+
+                verse_text = build_verse_text(words)
+                tex_lines.append(line + verse_text.strip())
+
+                should_add_paragraph_marker = words[-1][1] if words else False
             tex_lines.append(r'\par }')
             out_path = f'{output_folder}/{book_info["code"]}_src.tex'
             with open(out_path, 'w', encoding='utf-8') as out:
@@ -117,40 +121,52 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                 logging.info(f'  Chapter {chap_num}')
                 if chap_num == 1:
                     first_para = True
+                    should_add_paragraph_marker = False
                     for verse_num, words in verses.items():
                         if first_para and verse_num == 1:
                             line = r'\par }\ChapOne{1}{\PP \VerseOne{1}'
                             first_para = False
-                            verse_text = ' '.join(word for word, _ in words)
-                            tex_lines.append(line + verse_text)
-                        elif any(pm for _, pm in words):
+                        elif should_add_paragraph_marker:
                             line = fr'\par }}{{\PP \VS{{{verse_num}}}'
-                            verse_text = ' '.join(word for word, _ in words)
-                            tex_lines.append(line + verse_text)
                         else:
                             line = fr'\VS{{{verse_num}}}'
-                            verse_text = ' '.join(word for word, _ in words)
-                            tex_lines.append(line + verse_text)
+
+                        verse_text = build_verse_text(words)
+                        tex_lines.append(line + verse_text.strip())
+
+                        should_add_paragraph_marker = words[-1][1] if words else False
                 else:
                     # Add blank line before new chapter
                     tex_lines.append('')
                     tex_lines.append(r'\par }\Chap{' + str(chap_num) + r'}{\PP \VerseOne{1}' + ' '.join(word for word, _ in verses.get(1, [])))
+                    
+                    should_add_paragraph_marker = False
                     for verse_num, words in verses.items():
                         if verse_num == 1:
                             continue  # Already handled above
-                        elif any(pm for _, pm in words):
+                        elif should_add_paragraph_marker:
                             line = fr'\par }}{{\PP \VS{{{verse_num}}}'
-                            verse_text = ' '.join(word for word, _ in words)
-                            tex_lines.append(line + verse_text)
                         else:
                             line = fr'\VS{{{verse_num}}}'
-                            verse_text = ' '.join(word for word, _ in words)
-                            tex_lines.append(line + verse_text)
+
+                        verse_text = build_verse_text(words)
+                        tex_lines.append(line + verse_text.strip())
+
+                        should_add_paragraph_marker = words[-1][1] if words else False
             tex_lines.append(r'\par }')
             out_path = f'{output_folder}/{book_info["code"]}_src.tex'
             with open(out_path, 'w', encoding='utf-8') as out:
                 out.write('\n'.join(tex_lines))
             logging.info(f'Wrote multi-chapter file: {out_path}')
+
+def build_verse_text(words):
+    verse_text = ''
+    for i, (word, pm_next) in enumerate(words):
+        if i != len(words) - 1 and pm_next:
+            verse_text += word + '\n\\par }{\\PP '
+        else:
+            verse_text += word + ' '
+    return verse_text
 
 if __name__ == "__main__":
     import sys
