@@ -87,6 +87,9 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
     import logging
     logging.basicConfig(level=logging.INFO, format='%(message)s')
 
+    # Special dropcap handling for verse 2 of first chapter
+    special_dropcap_books = {40, 64}  # 40: ΚΑΤΑ ΜΑΘΘΑΙΟΝ, 64: ΙΩΑΝΝΟΥ Γ
+
     for book_num, book_info in nt_books.items():
         logging.info(f'Processing book {book_info["code"]}: {book_info["title"]}')
         tex_lines = []
@@ -102,7 +105,10 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                     line = r'\par }\OneChap {\PP \VerseOne{1}'
                     first_para = False
                 elif should_add_paragraph_marker:
-                    line = fr'\par }}{{\PP \VS{{{verse_num}}}'
+                    if book_num in special_dropcap_books and verse_num == 2:
+                        line = fr'\par }}{{\PP \postdropcapindent\VS{{{verse_num}}}'
+                    else:
+                        line = fr'\par }}{{\PP \VS{{{verse_num}}}'
                 else:
                     line = fr'\VS{{{verse_num}}}'
 
@@ -127,7 +133,10 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                             line = r'\par }\ChapOne{1}{\PP \VerseOne{1}'
                             first_para = False
                         elif should_add_paragraph_marker:
-                            line = fr'\par }}{{\PP \VS{{{verse_num}}}'
+                            if book_num in special_dropcap_books and verse_num == 2:
+                                line = fr'\par }}{{\PP \postdropcapindent\VS{{{verse_num}}}'
+                            else:
+                                line = fr'\par }}{{\PP \VS{{{verse_num}}}'
                         else:
                             line = fr'\VS{{{verse_num}}}'
 

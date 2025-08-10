@@ -41,6 +41,13 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Page size (fit reader size)
 - [x] If I ever change page size ΜΑΛΑΧΙΑΣ dropcap will probably Need to be reset in the source tex
 - [ ] Fetch and add NT
-  - [ ] Remove special characters like ¬
-  - [ ] Dropcaps to fix: ΠΡΟΣ ΕΒΡΑΙΟΥΣ
+  - [ ] Remove special characters like ¬ (does this signify a quote?)
+  - [x] Dropcaps to fix: 
+      - ΚΑΤΑ ΜΑΘΘΑΙΟΝ
+      - ΙΩΑΝΝΟΥ Γ
+  - [ ] Fix paragraphing
+    - [x] verse positioning.
+    - [ ] Weird breaks: \par }{\PP \postdropcapindent\VS{2}
+        - ΚΑΤΑ ΛΟΥΚΑΝ 1:4
+        - ΚΑΤΑ ΜΑΡΚΟΝ 1:3
 - [ ] Word out in margins.
