@@ -43,15 +43,13 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    current_book = None
-    current_chapter = None
-    current_verse = None
-    paragraphs = []
-    paragraph_marker_next = False
     book_data = {}
 
     with open(csv_path, encoding='utf-8') as f:
         reader = csv.reader(f, delimiter='\t')
+
+        in_poetry_block = False
+        paragraph_marker_next = False
         for row in reader:
             # Skip empty or malformed rows
             if not row or len(row) < 3:
@@ -60,6 +58,14 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
             book_num, chap_num, verse_num = map(int, re.findall(r'\d+', row[1]))
             word_html = row[2]
             word = clean_word(word_html)
+
+            # Handle poetry quote starts
+            poetry_quote_starts = False
+            if '<pm>¬</pm>' in word_html:
+                poetry_quote_starts = True
+                in_poetry_block = True
+                word = word.replace('<pm>¬</pm>', '¬')
+
             # Detect paragraph marker
             if '<pm>¶</pm>' in word_html:
                 paragraph_marker_next = True
@@ -67,11 +73,6 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
             # Remove stray paragraph marks
             word = word.replace('¶', '')
 
-            # Handle poetry quote starts
-            poetry_quote_starts = False
-            if '<pm>¬</pm>' in word_html:
-                poetry_quote_starts = True
-                word = word.replace('<pm>¬</pm>', '¬')
             # Ensure book exists
             if book_num not in book_data:
                 book_data[book_num] = {}
@@ -83,8 +84,11 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                 book_data[book_num][chap_num][verse_num] = []
 
             # Add word to verse
-            book_data[book_num][chap_num][verse_num].append((word, paragraph_marker_next, poetry_quote_starts))
-            paragraph_marker_next = False
+            book_data[book_num][chap_num][verse_num].append((word, paragraph_marker_next, poetry_quote_starts, in_poetry_block))
+            
+            if paragraph_marker_next:
+                in_poetry_block = False # Poetry blocks end at a Paragraph (unless the next word starts a new one)
+            paragraph_marker_next = False # Assume next word does not start a new paragraph
 
     # Set of single-chapter NT books by book number
     single_chapter_books = {57, 62, 63, 64, 65}  # PHM, 1JN, 2JN, 3JN, JUD
@@ -120,11 +124,6 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                 tex_lines.append(build_line_text(line, words))
 
                 should_add_paragraph_marker = words[-1][1] if words else False
-            tex_lines.append(r'\par }')
-            out_path = f'{output_folder}/{book_info["code"]}_src.tex'
-            with open(out_path, 'w', encoding='utf-8') as out:
-                out.write('\n'.join(tex_lines))
-            logging.info(f'Wrote single-chapter file: {out_path}')
         else:
             # Multi-chapter book formatting (GEN_src.tex model)
             for chap_num, verses in chapters.items():
@@ -150,12 +149,11 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                 else:
                     # Add blank line before new chapter
                     tex_lines.append('')
-                    tex_lines.append(r'\par }\Chap{' + str(chap_num) + r'}{\PP \VerseOne{1}' + ' '.join(word for word, _, _ in verses.get(1, [])))
                     
                     should_add_paragraph_marker = False
                     for verse_num, words in verses.items():
                         if verse_num == 1:
-                            continue  # Already handled above
+                            line = r'\par }\Chap{' + str(chap_num) + r'}{\PP \VerseOne{1}'
                         elif should_add_paragraph_marker:
                             line = fr'\par }}{{\PP \VS{{{verse_num}}}'
                         else:
@@ -164,17 +162,20 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                         tex_lines.append(build_line_text(line, words))
 
                         should_add_paragraph_marker = words[-1][1] if words else False
-            tex_lines.append(r'\par }')
-            out_path = f'{output_folder}/{book_info["code"]}_src.tex'
-            with open(out_path, 'w', encoding='utf-8') as out:
-                out.write('\n'.join(tex_lines))
-            logging.info(f'Wrote multi-chapter file: {out_path}')
+        
+        # Close final paragraph
+        tex_lines.append(r'\par }')
+        
+        out_path = f'{output_folder}/{book_info["code"]}_src.tex'
+        with open(out_path, 'w', encoding='utf-8') as out:
+            out.write('\n'.join(tex_lines))
+        logging.info(f'Wrote book file: {out_path}')
 
 def build_verse_text(words):
     verse_text = ''
     in_quote = False
 
-    for i, (word, pm_next, poetry_quote_starts) in enumerate(words):
+    for i, (word, pm_next, poetry_quote_starts, in_poetry_block) in enumerate(words):
         if poetry_quote_starts:
             # in our data set, I never see a paragraph mark in immediately preceding a quote mark
             if i > 0:

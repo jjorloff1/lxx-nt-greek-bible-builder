@@ -114,9 +114,32 @@
 
 \newcommand{\postdropcapindent}{\hspace*{.2in + .8em}}
 
-\usepackage{etoolbox}
-% \AtBeginEnvironment{quote}{\vspace{-0.5\baselineskip}}
-\AtEndEnvironment{quote}{\vspace{-.5\baselineskip}}
+% \usepackage{etoolbox}
+% \AtBeginEnvironment{quote}{\vspace{0\baselineskip}}
+% \AtEndEnvironment{quote}{\vspace{-0.5\baselineskip}}
+
+\newenvironment{poetryblock}
+  {%
+    \vspace{1em}%
+    \begin{list}{}%
+      {%
+        \setlength{\leftmargin}{2em}   % Change left margin
+        \setlength{\rightmargin}{2em}  % Change right margin
+        \setlength{\topsep}{1em}       % Space before block
+        \setlength{\partopsep}{0pt}    % Extra space above block
+      }%
+    \item\relax
+    \itshape                    % Italicize text
+    % Locally redefine quote environment for this block
+    \renewenvironment{quote}
+      {\list{}{\rightmargin=1em \leftmargin=1em \topsep=0pt \partopsep=0pt}\item\relax}
+      {\endlist}
+  }
+  {%
+    \end{list}%
+    \vspace{1em}%
+  }
+
 % \renewcommand{\ch}[1]{%
 %   \setcounter{mychapter}{#1}%
 %   \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%

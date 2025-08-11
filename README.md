@@ -41,6 +41,7 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Page size (fit reader size)
 - [x] If I ever change page size ΜΑΛΑΧΙΑΣ dropcap will probably Need to be reset in the source tex
 - [ ] Fetch and add NT
+  - [ ] Make sure things like John 8, Mark 16 etc show as I would expect
   - [x] Dropcaps to fix: 
       - ΚΑΤΑ ΜΑΘΘΑΙΟΝ
       - ΙΩΑΝΝΟΥ Γ
@@ -53,10 +54,11 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
       - [x] basic functionality
       - [ ] need to indent and stylize: signifies italicized or indented quotes, sometimes vs number before
       - [ ] extra white space, in preamble controlling bottom, need to adjust.
-        - In some chapters there is some other mechanism giving a little more padding space.
-        - I may want to define a poetry block and wrap all quotes, then I can control padding of the whole.
+      - [ ] define poetry block in code
       - [ ] remove: ¬ 
+    - [x] Not breaking paragraphs in 1st verse of chapter
   - [ ] Random stuff
     - [ ] ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β -  ἀλλὰ συνκακοπάθησον= τῷ εὐαγγελίῳ κατὰ δύναμιν Θεοῦ,
     - [ ] Rev 1: ναί, ἀμήν.
+    - [ ] 1 Tim 3:1.  In NA 28, this verse is broken between paragraphs, but the first part of the verse is actually part of the last paragrah, and this is not typical for a new chapter to start mid-paragraph
 - [ ] Word out in margins.
