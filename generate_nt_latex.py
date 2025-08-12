@@ -117,11 +117,35 @@ def generate_latex_files(book_data, output_folder):
         tex_lines.append(r'\par }')
 
         book_content = '\n'.join(tex_lines)
-        
+        book_content = '\n'.join(add_poetryblock_to_quotes(book_content.splitlines()))
+
         out_path = f'{output_folder}/{book_info["code"]}_src.tex'
         with open(out_path, 'w', encoding='utf-8') as out:
             out.write(book_content)
         logging.info(f'Wrote book file: {out_path}')
+
+def add_poetryblock_to_quotes(lines):
+    output = []
+    in_poetry = False
+
+    for i, line in enumerate(lines):
+        # is_quote_line = line.lstrip().contains(r'\par }{\PP \begin{quote}')
+        if r'\par }{\PP \begin{quote}' in line and not in_poetry:
+            # Start of poetry block
+            output.append(r'\begin{poetryblock}')
+            in_poetry = True
+
+        output.append(line)
+
+        # Check if next line is not a quote line (or end of file)
+        # next_is_quote = (i + 1 < len(lines)) and lines[i + 1].contains(r'\par }{\PP \begin{quote}')
+        next_is_quote = (i + 1 < len(lines)) and r'\par }{\PP \begin{quote}' in lines[i + 1]
+        if in_poetry and (not next_is_quote or i + 1 == len(lines)):
+            # End of poetry block before the next non-quote line
+            output.append(r'\end{poetryblock}')
+            in_poetry = False
+
+    return output
 
 def generate_book_lines(book_data, book_num):
     book_lines = []
