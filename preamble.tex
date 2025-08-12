@@ -5,13 +5,16 @@
 \usepackage{setspace} % for line spacing
 \usepackage{microtype} % helps with formatting
 \usepackage{emptypage}
-\usepackage[greek]{babel}
 \usepackage[all]{nowidow}
 \usepackage{ragged2e} % Nicer ragged edges. Use \Center to get nice balanced lines
 \usepackage{bookmark} %add PDF bookmarks for each \chapter
 \usepackage{hyperref} % Make the TOC clickable
 \usepackage{fontspec}
 \setmainfont{Gentium}
+
+% \usepackage[greek]{babel} % use with pdfLaTeX, not XeLaTeX
+\usepackage{polyglossia}
+\setmainlanguage{greek}
 
 % Define colors
 \usepackage{xcolor}

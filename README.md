@@ -59,8 +59,13 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
       - [x] remove: ¬ 
     - [x] Not breaking paragraphs in 1st verse of chapter
   - [ ] Random stuff
-    - [ ] ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β -  ἀλλὰ συνκακοπάθησον= τῷ εὐαγγελίῳ κατὰ δύναμιν Θεοῦ,
-    - [ ] Rev 1: ναί, ἀμήν.
+    - [x] Special Characters: ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β -  ἀλλὰ συνκακοπάθησον= τῷ εὐαγγελίῳ κατὰ δύναμιν Θεοῦ,
+      - [x] '＋' means Greek word, which are not in original Berean Greek data, 3 words adapted from Byzantine text, 2 words adapted from BHP;
+      - [x] '＊' means the main word is different from NA28;
+      - [x] '＝' means the main word is identical to the corresponding word in NA28, with minor orthographical difference)
+    - [x] Rev 1: ναί, ἀμήν.
     - [ ] 1 Tim 3:1.  In NA 28, this verse is broken between paragraphs, but the first part of the verse is actually part of the last paragrah, and this is not typical for a new chapter to start mid-paragraph
-    - [ ] Heb 2:6, word doesn't split and goes into margin.  Try "διε\-μαρ\-τύ\-ρα\-το" or \setmainlanguage{greek}
+  - Single chapter book list is unnecessary.  can be detecteds
 - [ ] Word out in margins.
+  - [x] Heb 2:6, word doesn't split and goes into margin.  Try "διε\-μαρ\-τύ\-ρα\-το" or \setmainlanguage{greek}
+  - [ ] 1 Timothy ἀγαθοεργεῖν, πρεσβυτέρας

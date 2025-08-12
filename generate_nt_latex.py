@@ -43,6 +43,11 @@ special_dropcap_books = {40, 64}  # 40: ΚΑΤΑ ΜΑΘΘΑΙΟΝ, 64: ΙΩΑΝ�
 # Set of single-chapter NT books by book number
 single_chapter_books = {57, 63, 64, 65}  # PHM, 2JN, 3JN, JUD
 
+# Mapping of problematic words to their hyphenated LaTeX forms
+hyphenation_map = {
+    "διεμαρτύρατο": r"διε\-μαρ\-τύ\-ρα\-το",
+}
+
 def clean_word(word_html):
     # Remove tags and extract text/punctuation
     word = re.sub(r'<.*?>', '', word_html)
@@ -76,6 +81,9 @@ def parse_csv(csv_path):
             if '<pm>¶</pm>' in word_html:
                 paragraph_marker_next = True
                 word = word.replace('¶', '')
+
+            # Remove Special Characters used to annotate text See: https://github.com/eliranwong/OpenGNT/blob/master/fileDescription.md
+            word = re.sub(r'[\*=+]', '', word)
 
             # Ensure book exists
             if book_num not in book_data:
@@ -217,7 +225,7 @@ def build_verse_text(words):
             verse_text += new_par_latex() + fr'\begin{{quote}}'
             in_quote = True
 
-        verse_text += word
+        verse_text += apply_hyphenation(word)
 
         # Poetry quote ends: next word starts poetry quote, or paragraph break, or end of verse
         next_word_starts_new_poetry_quote = (i + 1 < len(words)) and words[i + 1][2]
@@ -230,6 +238,11 @@ def build_verse_text(words):
         else:
             verse_text += ' '
     return verse_text
+
+def apply_hyphenation(text):
+    for word, hyphenated in hyphenation_map.items():
+        text = text.replace(word, hyphenated)
+    return text
 
 def build_line_text(line_prefix, words):
     verse_text = build_verse_text(words)
