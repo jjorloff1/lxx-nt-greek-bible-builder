@@ -116,7 +116,7 @@
 
 % \usepackage{etoolbox}
 % \AtBeginEnvironment{quote}{\vspace{0\baselineskip}}
-% \AtEndEnvironment{quote}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{quote}{\vspace{-0.25\baselineskip}}
 
 \newenvironment{poetryblock}
   {%
@@ -125,7 +125,7 @@
       {%
         \setlength{\leftmargin}{2em}   % Change left margin
         \setlength{\rightmargin}{2em}  % Change right margin
-        \setlength{\topsep}{1em}       % Space before block
+        \setlength{\topsep}{.5em}       % Space before block
         \setlength{\partopsep}{0pt}    % Extra space above block
       }%
     \item\relax
