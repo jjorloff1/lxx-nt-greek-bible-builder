@@ -43,11 +43,6 @@ special_dropcap_books = {40, 64}  # 40: ΚΑΤΑ ΜΑΘΘΑΙΟΝ, 64: ΙΩΑΝ�
 # Set of single-chapter NT books by book number
 single_chapter_books = {57, 63, 64, 65}  # PHM, 2JN, 3JN, JUD
 
-# Mapping of problematic words to their hyphenated LaTeX forms
-hyphenation_map = {
-    "διεμαρτύρατο": r"διε\-μαρ\-τύ\-ρα\-το",
-}
-
 def clean_word(word_html):
     # Remove tags and extract text/punctuation
     word = re.sub(r'<.*?>', '', word_html)
