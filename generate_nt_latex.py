@@ -2,6 +2,10 @@ import csv
 import re
 import os
 
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+
 # Mapping for NT books (example for Matthew)
 nt_books = {
     40: {'code': 'MAT', 'title': 'ΚΑΤΑ ΜΑΘΘΑΙΟΝ'},
@@ -33,16 +37,18 @@ nt_books = {
     66: {'code': 'REV', 'title': 'ΑΠΟΚΑΛΥΨΙΣ ΙΩΑΝΝΟΥ'},
 }
 
+# Special dropcap handling for verse 2 of first chapter
+special_dropcap_books = {40, 64}  # 40: ΚΑΤΑ ΜΑΘΘΑΙΟΝ, 64: ΙΩΑΝΝΟΥ Γ
+
+# Set of single-chapter NT books by book number
+single_chapter_books = {57, 63, 64, 65}  # PHM, 2JN, 3JN, JUD
+
 def clean_word(word_html):
     # Remove <a> tags and extract text/punctuation
     word = re.sub(r'<.*?>', '', word_html)
     return word
 
-def parse_csv_and_generate_tex(csv_path, output_folder):
-    # Ensure output directory exists
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
+def parse_csv(csv_path):
     book_data = {}
 
     with open(csv_path, encoding='utf-8') as f:
@@ -90,86 +96,92 @@ def parse_csv_and_generate_tex(csv_path, output_folder):
                 in_poetry_block = False # Poetry blocks end at a Paragraph (unless the next word starts a new one)
             paragraph_marker_next = False # Assume next word does not start a new paragraph
 
-    # Set of single-chapter NT books by book number
-    single_chapter_books = {57, 62, 63, 64, 65}  # PHM, 1JN, 2JN, 3JN, JUD
+    return book_data
 
-    import logging
-    logging.basicConfig(level=logging.INFO, format='%(message)s')
+def generate_latex_files(book_data, output_folder):
+    # Ensure output directory exists
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
 
-    # Special dropcap handling for verse 2 of first chapter
-    special_dropcap_books = {40, 64}  # 40: ΚΑΤΑ ΜΑΘΘΑΙΟΝ, 64: ΙΩΑΝΝΟΥ Γ
-
+    # Generate LaTeX files
     for book_num, book_info in nt_books.items():
         logging.info(f'Processing book {book_info["code"]}: {book_info["title"]}')
+
         tex_lines = []
         tex_lines.append(f'\\NormalFont\\ShortTitle{{{book_info["title"]}}}')
         tex_lines.append(f'{{\\MT {book_info["title"]}\n')
-        chapters = book_data.get(book_num, {})
-        if book_num in single_chapter_books:
-            # Single-chapter book formatting (MAN_src.tex model)
-            first_para = True
-            should_add_paragraph_marker = False
-            for verse_num, words in chapters.get(1, {}).items():
-                if first_para and verse_num == 1:
-                    line = r'\par }\OneChap {\PP \VerseOne{1}'
-                    first_para = False
-                elif should_add_paragraph_marker:
-                    if book_num in special_dropcap_books and verse_num == 2:
-                        line = fr'\par }}{{\PP \postdropcapindent\VS{{{verse_num}}}'
-                    else:
-                        line = fr'\par }}{{\PP \VS{{{verse_num}}}'
-                else:
-                    line = fr'\VS{{{verse_num}}}'
 
-                tex_lines.append(build_line_text(line, words))
-
-                should_add_paragraph_marker = words[-1][1] if words else False
-        else:
-            # Multi-chapter book formatting (GEN_src.tex model)
-            for chap_num, verses in chapters.items():
-                logging.info(f'  Chapter {chap_num}')
-                if chap_num == 1:
-                    first_para = True
-                    should_add_paragraph_marker = False
-                    for verse_num, words in verses.items():
-                        if first_para and verse_num == 1:
-                            line = r'\par }\ChapOne{1}{\PP \VerseOne{1}'
-                            first_para = False
-                        elif should_add_paragraph_marker:
-                            if book_num in special_dropcap_books and verse_num == 2:
-                                line = fr'\par }}{{\PP \postdropcapindent\VS{{{verse_num}}}'
-                            else:
-                                line = fr'\par }}{{\PP \VS{{{verse_num}}}'
-                        else:
-                            line = fr'\VS{{{verse_num}}}'
-
-                        tex_lines.append(build_line_text(line, words))
-
-                        should_add_paragraph_marker = words[-1][1] if words else False
-                else:
-                    # Add blank line before new chapter
-                    tex_lines.append('')
-                    
-                    should_add_paragraph_marker = False
-                    for verse_num, words in verses.items():
-                        if verse_num == 1:
-                            line = r'\par }\Chap{' + str(chap_num) + r'}{\PP \VerseOne{1}'
-                        elif should_add_paragraph_marker:
-                            line = fr'\par }}{{\PP \VS{{{verse_num}}}'
-                        else:
-                            line = fr'\VS{{{verse_num}}}'
-
-                        tex_lines.append(build_line_text(line, words))
-
-                        should_add_paragraph_marker = words[-1][1] if words else False
+        tex_lines.extend(generate_book_lines(book_data, book_num))
         
         # Close final paragraph
         tex_lines.append(r'\par }')
+
+        book_content = '\n'.join(tex_lines)
         
         out_path = f'{output_folder}/{book_info["code"]}_src.tex'
         with open(out_path, 'w', encoding='utf-8') as out:
-            out.write('\n'.join(tex_lines))
+            out.write(book_content)
         logging.info(f'Wrote book file: {out_path}')
+
+def generate_book_lines(book_data, book_num):
+    book_lines = []
+
+    chapters = book_data.get(book_num, {})
+    for chap_num, chapter in chapters.items():
+        logging.info(f'  Chapter {chap_num}')
+        book_lines.extend(generate_chapter_lines(book_num, chap_num, chapter))
+    return book_lines
+
+def generate_chapter_lines(book_num, chap_num, chapter):
+    chapter_lines = []
+
+    if chap_num > 1:
+        chapter_lines.append('')
+
+    should_add_paragraph_marker = False
+    for verse_num, words in chapter.items():
+        if verse_num == 1:
+            line = first_chapter_first_verse_latex(book_num, chap_num)
+        elif should_add_paragraph_marker:
+            if should_add_post_dropcap_latex(book_num, chap_num, verse_num):
+                line = post_dropcap_new_paragraph_verse_latex(verse_num)
+            else:
+                line = new_par_with_verse_latex(verse_num)
+        else:
+            line = verse_latex(verse_num)
+
+        chapter_lines.append(build_line_text(line, words))
+
+        should_add_paragraph_marker = should_start_new_paragraph_next_verse(words)
+
+    return chapter_lines
+
+def first_chapter_first_verse_latex(book_num, chap_num = 1):
+    chap_latex = r'\ChapOne{1}'
+    if book_num in single_chapter_books:
+        chap_latex = r'\OneChap '
+    elif (chap_num > 1):
+        chap_latex = r'\Chap{' + str(chap_num) + r'}'
+
+    return r'\par }' + chap_latex + r'{\PP \VerseOne{1}'
+
+def should_add_post_dropcap_latex(book_num, chap_num, verse_num):
+    return  book_num in special_dropcap_books and chap_num == 1 and verse_num == 2
+
+def should_start_new_paragraph_next_verse(words):
+    return words[-1][1] if words else False
+
+def post_dropcap_new_paragraph_verse_latex(verse_num):
+    return new_par_latex() + fr'\postdropcapindent' + verse_latex(verse_num)
+
+def new_par_latex():
+    return fr'\par }}{{\PP '
+
+def new_par_with_verse_latex(verse_num):
+    return new_par_latex() + verse_latex(verse_num)
+
+def verse_latex(verse_num):
+    return fr'\VS{{{verse_num}}}'
 
 def build_verse_text(words):
     verse_text = ''
@@ -180,7 +192,7 @@ def build_verse_text(words):
             # in our data set, I never see a paragraph mark in immediately preceding a quote mark
             if i > 0:
                 verse_text += '\n' # if first word in new verse, we should already be on a new line.
-            verse_text += '\\par }{\\PP \\begin{quote}'
+            verse_text += new_par_latex() + fr'\begin{{quote}}'
             in_quote = True
 
         verse_text += word
@@ -192,7 +204,7 @@ def build_verse_text(words):
             in_quote = False
 
         if i != len(words) - 1 and pm_next:
-            verse_text += '\n\\par }{\\PP '
+            verse_text += '\n' + new_par_latex()
         else:
             verse_text += ' '
     return verse_text
@@ -213,4 +225,5 @@ if __name__ == "__main__":
         csv_path = sys.argv[1]
     if len(sys.argv) > 2:
         output_folder = sys.argv[2]
-    parse_csv_and_generate_tex(csv_path, output_folder)
+    book_data = parse_csv(csv_path)
+    generate_latex_files(book_data, output_folder)
