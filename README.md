@@ -22,6 +22,7 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [ ] Add front matter (copyright, editor, year, etc)
 
 ## TODO: Jesse
+- [x] fork repo
 - [x] Single column
 - [x] Drop Cap
   - [x] Make second line line up
@@ -54,7 +55,7 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
       - [x] basic functionality
       - [ ] need to indent and stylize: signifies italicized or indented quotes, sometimes vs number before
       - [ ] extra white space, in preamble controlling bottom, need to adjust.
-      - [ ] define poetry block in code
+      - [x] define poetry block in code
       - [ ] remove: ¬ 
     - [x] Not breaking paragraphs in 1st verse of chapter
   - [ ] Random stuff
