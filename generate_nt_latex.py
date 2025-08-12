@@ -44,7 +44,7 @@ special_dropcap_books = {40, 64}  # 40: ΚΑΤΑ ΜΑΘΘΑΙΟΝ, 64: ΙΩΑΝ�
 single_chapter_books = {57, 63, 64, 65}  # PHM, 2JN, 3JN, JUD
 
 def clean_word(word_html):
-    # Remove <a> tags and extract text/punctuation
+    # Remove tags and extract text/punctuation
     word = re.sub(r'<.*?>', '', word_html)
     return word
 
@@ -70,14 +70,12 @@ def parse_csv(csv_path):
             if '<pm>¬</pm>' in word_html:
                 poetry_quote_starts = True
                 in_poetry_block = True
-                word = word.replace('<pm>¬</pm>', '¬')
+                word = word.replace('¬', '')
 
             # Detect paragraph marker
             if '<pm>¶</pm>' in word_html:
                 paragraph_marker_next = True
-                word = word.replace('<pm>¶</pm>', '')
-            # Remove stray paragraph marks
-            word = word.replace('¶', '')
+                word = word.replace('¶', '')
 
             # Ensure book exists
             if book_num not in book_data:

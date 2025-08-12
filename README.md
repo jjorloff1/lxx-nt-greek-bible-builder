@@ -51,15 +51,16 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
     - [x] Weird breaks: \par }{\PP \postdropcapindent\VS{2}
         - ΚΑΤΑ ΛΟΥΚΑΝ 1:4
         - ΚΑΤΑ ΜΑΡΚΟΝ 1:3
-    - [] ¬ 
+    - [x] ¬ 
       - [x] basic functionality
-      - [ ] need to indent and stylize: signifies italicized or indented quotes, sometimes vs number before
-      - [ ] extra white space, in preamble controlling bottom, need to adjust.
+      - [x] need to indent and stylize: signifies italicized or indented quotes, sometimes vs number before
+      - [x] extra white space, in preamble controlling bottom, need to adjust.
       - [x] define poetry block in code
-      - [ ] remove: ¬ 
+      - [x] remove: ¬ 
     - [x] Not breaking paragraphs in 1st verse of chapter
   - [ ] Random stuff
     - [ ] ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β -  ἀλλὰ συνκακοπάθησον= τῷ εὐαγγελίῳ κατὰ δύναμιν Θεοῦ,
     - [ ] Rev 1: ναί, ἀμήν.
     - [ ] 1 Tim 3:1.  In NA 28, this verse is broken between paragraphs, but the first part of the verse is actually part of the last paragrah, and this is not typical for a new chapter to start mid-paragraph
+    - [ ] Heb 2:6, word doesn't split and goes into margin.  Try "διε\-μαρ\-τύ\-ρα\-το" or \setmainlanguage{greek}
 - [ ] Word out in margins.

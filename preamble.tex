@@ -28,7 +28,7 @@
 \hyphenpenalty=2000
 \emergencystretch=1pt
 \setlength{\parindent}{.2in} % Set paragraph indentation
-\setlength{\parskip}{0\baselineskip}
+\setlength{\parskip}{0pt}
 
 \usepackage{titlesec}
 \renewcommand{\thechapter}{} % remove numbers from chapter
@@ -114,35 +114,29 @@
 
 \newcommand{\postdropcapindent}{\hspace*{.2in + .8em}}
 
-% \usepackage{etoolbox}
-% \AtBeginEnvironment{quote}{\vspace{0\baselineskip}}
-\AtEndEnvironment{quote}{\vspace{-0.25\baselineskip}}
-
 \newenvironment{poetryblock}
   {%
-    \vspace{1em}%
+    \vspace{0.5\baselineskip}%
+    \setlength{\topsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
     \begin{list}{}%
       {%
         \setlength{\leftmargin}{2em}   % Change left margin
         \setlength{\rightmargin}{2em}  % Change right margin
-        \setlength{\topsep}{.5em}       % Space before block
-        \setlength{\partopsep}{0pt}    % Extra space above block
+        \setlength{\topsep}{0pt}
+        \setlength{\partopsep}{0pt}
+        \setlength{\parsep}{0pt}
+        \setlength{\itemsep}{0pt}
       }%
     \item\relax
     \itshape                    % Italicize text
     % Locally redefine quote environment for this block
     \renewenvironment{quote}
-      {\list{}{\rightmargin=1em \leftmargin=1em \topsep=0pt \partopsep=0pt}\item\relax}
+      {\list{}{\rightmargin=1em \leftmargin=1em
+        \topsep=0pt \partopsep=0pt \parsep=0pt \itemsep=0pt}\item\relax}
       {\endlist}
   }
   {%
     \end{list}%
-    \vspace{1em}%
+    \vspace{0.5\baselineskip}%
   }
-
-% \renewcommand{\ch}[1]{%
-%   \setcounter{mychapter}{#1}%
-%   \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%
-%   \marginnote[\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}]{}%
-% }
-% \renewcommand{\ch}[1]{\textcolor{bookheadingcolor}{\oldch{#1}}}
