@@ -43,6 +43,9 @@ special_dropcap_books = {40, 64}  # 40: ΚΑΤΑ ΜΑΘΘΑΙΟΝ, 64: ΙΩΑΝ�
 # Set of single-chapter NT books by book number
 single_chapter_books = {57, 63, 64, 65}  # PHM, 2JN, 3JN, JUD
 
+# These are chapters in the NT that don't start new paragraphs, but continue from the prev chapter
+chapters_continuing_paragraphs = {43: [8], 46: [11], 47: [2], 51: [4], 54: [3]}
+
 def clean_word(word_html):
     # Remove tags and extract text/punctuation
     word = re.sub(r'<.*?>', '', word_html)
@@ -160,7 +163,7 @@ def generate_book_lines(book_data, book_num):
 def generate_chapter_lines(book_num, chap_num, chapter):
     chapter_lines = []
 
-    if chap_num > 1:
+    if chap_num > 1 and chap_num not in chapters_continuing_paragraphs.get(book_num, []):
         chapter_lines.append('')
 
     should_add_paragraph_marker = False
@@ -182,6 +185,9 @@ def generate_chapter_lines(book_num, chap_num, chapter):
     return chapter_lines
 
 def first_chapter_first_verse_latex(book_num, chap_num = 1):
+    if chap_num in chapters_continuing_paragraphs.get(book_num, []):
+        return r'\inparch{' + str(chap_num) + r'} \vs{1}'
+
     chap_latex = r'\ChapOne{1}'
     if book_num in single_chapter_books:
         chap_latex = r'\OneChap '
@@ -220,7 +226,7 @@ def build_verse_text(words):
             verse_text += new_par_latex() + fr'\begin{{quote}}'
             in_quote = True
 
-        verse_text += apply_hyphenation(word)
+        verse_text += word
 
         # Poetry quote ends: next word starts poetry quote, or paragraph break, or end of verse
         next_word_starts_new_poetry_quote = (i + 1 < len(words)) and words[i + 1][2]
@@ -233,11 +239,6 @@ def build_verse_text(words):
         else:
             verse_text += ' '
     return verse_text
-
-def apply_hyphenation(text):
-    for word, hyphenated in hyphenation_map.items():
-        text = text.replace(word, hyphenated)
-    return text
 
 def build_line_text(line_prefix, words):
     verse_text = build_verse_text(words)
