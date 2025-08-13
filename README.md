@@ -42,7 +42,7 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Page size (fit reader size)
 - [x] If I ever change page size ΜΑΛΑΧΙΑΣ dropcap will probably Need to be reset in the source tex
 - [ ] Fetch and add NT
-  - [ ] Make sure things like John 8, Mark 16 etc show as I would expect
+  - [x] Make sure things like John 8, Mark 16 etc show as I would expect
   - [x] Dropcaps to fix: 
       - ΚΑΤΑ ΜΑΘΘΑΙΟΝ
       - ΙΩΑΝΝΟΥ Γ
@@ -66,13 +66,13 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
         - These two don't seem to want to work, because their placement would be in the larger left margin
         - [x] Col 4:1 〔51｜4｜1〕
         - [x] 1 Tim 3:1.  〔54｜3｜1〕 In NA 28, this verse is broken between paragraphs, but the first part of the verse is actually part of the last paragrah, and this is not typical for a new chapter to start mid-paragraph
-    - [ ] Kata markon 15:1, header verse reference is one verse behind.
+    - [ ] Kata markon 15:1, header verse reference is one verse behind. Low priority, this could change if anything shifts on the page.
   - [ ] Random stuff
-    - [ ] Special Characters: ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β -  ἀλλὰ συνκακοπάθησον= τῷ εὐαγγελίῳ κατὰ δύναμιν Θεοῦ,
+    - [x] Special Characters: ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β -  ἀλλὰ συνκακοπάθησον= τῷ εὐαγγελίῳ κατὰ δύναμιν Θεοῦ,
       - [x] '＋' means Greek word, which are not in original Berean Greek data, 3 words adapted from Byzantine text, 2 words adapted from BHP;
       - [x] '＊' means the main word is different from NA28;
       - [x] '＝' means the main word is identical to the corresponding word in NA28, with minor orthographical difference)
-      - [ ] any other special characters (do a regex find)
+      - [-] any other special characters (do a regex find)
     - [x] Rev 1: ναί, ἀμήν.
 - [x] Word out in margins.
   - [x] Heb 2:6, word doesn't split and goes into margin.  Try "διε\-μαρ\-τύ\-ρα\-το" or \setmainlanguage{greek}
