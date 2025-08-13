@@ -46,7 +46,7 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
   - [x] Dropcaps to fix: 
       - ΚΑΤΑ ΜΑΘΘΑΙΟΝ
       - ΙΩΑΝΝΟΥ Γ
-  - [ ] Fix paragraphing
+  - [x] Fix paragraphing
     - [x] verse positioning.
     - [x] Weird breaks: \par }{\PP \postdropcapindent\VS{2}
         - ΚΑΤΑ ΛΟΥΚΑΝ 1:4
@@ -58,14 +58,15 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
       - [x] define poetry block in code
       - [x] remove: ¬ 
     - [x] Not breaking paragraphs in 1st verse of chapter
-    - [ ] Chapters starting in the middle of a paragraph:
+    - [x] Chapters starting in the middle of a paragraph:
         - USE this regex in intellij: `〔\d+｜(\d+)｜\d+〕(?!.*¶).*?\n.*?〔\d+｜(?!\1)`
         - [x] John 7:53-8:1 〔43｜8｜1〕
         - [x] 1 Corinthians 11:1 〔46｜11｜1〕
         - [x] 2 Cor 2:1 〔47｜2｜1〕
         - These two don't seem to want to work, because their placement would be in the larger left margin
-        - [ ] Col 4:1 〔51｜4｜1〕
-        - [ ] 1 Tim 3:1.  〔54｜3｜1〕 In NA 28, this verse is broken between paragraphs, but the first part of the verse is actually part of the last paragrah, and this is not typical for a new chapter to start mid-paragraph
+        - [x] Col 4:1 〔51｜4｜1〕
+        - [x] 1 Tim 3:1.  〔54｜3｜1〕 In NA 28, this verse is broken between paragraphs, but the first part of the verse is actually part of the last paragrah, and this is not typical for a new chapter to start mid-paragraph
+    - [ ] Kata markon 15:1, header verse reference is one verse behind.
   - [ ] Random stuff
     - [ ] Special Characters: ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β -  ἀλλὰ συνκακοπάθησον= τῷ εὐαγγελίῳ κατὰ δύναμιν Θεοῦ,
       - [x] '＋' means Greek word, which are not in original Berean Greek data, 3 words adapted from Byzantine text, 2 words adapted from BHP;
@@ -73,9 +74,9 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
       - [x] '＝' means the main word is identical to the corresponding word in NA28, with minor orthographical difference)
       - [ ] any other special characters (do a regex find)
     - [x] Rev 1: ναί, ἀμήν.
-
-  - Single chapter book list is unnecessary.  can be detecteds
 - [x] Word out in margins.
   - [x] Heb 2:6, word doesn't split and goes into margin.  Try "διε\-μαρ\-τύ\-ρα\-το" or \setmainlanguage{greek}
   - [x] 1 Timothy ἀγαθοεργεῖν, πρεσβυτέρας
 - [ ] NT Page title
+- [ ] Update notation at the end of the doc
+- [ ] put together NT and OT with 1 TOC
