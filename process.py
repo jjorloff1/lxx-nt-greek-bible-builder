@@ -28,13 +28,36 @@ def title_page(title, author=None, include_preamble=False):
     s += f"\\begin{{spacing}}{{1.1}}\n\\maketitle\n\n"
     return s
 
-ot_part_subtitle = r"""\begin{center}
+ot_title_page = r"""\cleardoublepage
+\thispagestyle{empty}
+\vspace*{3cm}
+\phantomsection
+\addcontentsline{toc}{part}{Η ΠΑΛΑΙΑ ΔΙΑΘΗΚΗ}
+\begin{center}
+  {\Huge Η ΠΑΛΑΙΑ ΔΙΑΘΗΚΗ}\\[2em]
   {\large Ἡ μετάφρασις τῶν Ἑβδομήκοντα}
 \end{center}
+\newpage
+\thispagestyle{empty}
+\null
+"""
+
+nt_title_page = r"""\cleardoublepage
+\thispagestyle{empty}
+\vspace*{3cm}
+\phantomsection
+\addcontentsline{toc}{part}{Η ΚΑΙΝΗ ΔΙΑΘΗΚΗ}
+\begin{center}
+  {\Huge Η ΚΑΙΝΗ ΔΙΑΘΗΚΗ}\\[2em]
+\end{center}
+\newpage
+\thispagestyle{empty}
+\null
 """
 
 def toc_section(section_title):
-    return r"""\pagestyle{empty}
+    return r"""\cleardoublepage
+\pagestyle{empty}
 \begingroup
 \centering
 {\huge %s \par}
@@ -48,6 +71,7 @@ def toc_section(section_title):
 \tableofcontents
 \end{multicols}
 \pagestyle{fancy}
+
 """ % section_title
 
 FOOT = r"""\vfill
@@ -127,13 +151,10 @@ def main():
                 output.write(title_page(main_title, None, include_preamble=True))
                 output.write(toc_section("Table of Contents"))
                 # OT section
-                output.write("\\cleardoublepage\n")
-                output.write(f"\\part{{{ot_title}}}\n")
-                output.write(ot_part_subtitle)
+                output.write(ot_title_page)
                 output.write(ot_latex)
                 # NT section
-                output.write("\\cleardoublepage\n")
-                output.write(f"\\part{{{nt_title}}}\n")
+                output.write(nt_title_page)
                 output.write(nt_latex)
                 output.write(FOOT)
         elif args.ot:
