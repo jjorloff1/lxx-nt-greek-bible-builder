@@ -57,9 +57,7 @@
 \setlength{\cftchapnumwidth}{0em}            % No space reserved for chapter numbers
 
 \newcommand{\psalmheading}[1]{%
-    \begin{Center}%
-        {#1}%
-    \end{Center}%
+    {\itshape #1}% % Italicize text              
 }
 
 % Set up chapter/verse references in headers
@@ -88,16 +86,16 @@
 
 \let\biblebook\chapter % rename \chapter so it's not confusing
 
-\newenvironment{psalmhead}[1]{%
-    \par\addvspace{\baselineskip}%
-    \noindent%
-    \begin{minipage}[b]{\columnwidth}%
-        \begin{Center}%
-            {#1}%
-        \end{Center}%
-}{%
-    \end{minipage}%
-}
+% \newenvironment{psalmhead}[1]{%
+%     \par\addvspace{\baselineskip}%
+%     \noindent%
+%     \begin{minipage}[b]{\columnwidth}%
+%         \begin{Center}%
+%             {#1}%
+%         \end{Center}%
+% }{%
+%     \end{minipage}%
+% }
 
 % Chapter and Heading Styles
 
@@ -167,6 +165,13 @@
     \end{list}%
     \vspace{0.5\baselineskip}%
   }
+
+  \newenvironment{psalms}
+    {
+      \let\oldpsch\ch
+      \renewcommand{\ch}[1]{\vspace{\baselineskip}\oldpsch{##1}}
+    }
+    {}
 
 \sloppy
 

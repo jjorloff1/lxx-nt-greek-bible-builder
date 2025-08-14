@@ -124,7 +124,7 @@ def process_latex(latex):
     latex = re.sub(r'\{\\PP ', r'\n', latex, flags=re.M)
 
     # Keep psalm headings together with next verse
-    latex = re.sub(r'\\psalmheading(\{\\ch\{\d+\}.*?\})(\n|)(.*?\n)', r'\\begin{psalmhead}\1\2\3\\end{psalmhead}\n', latex, flags=re.M)
+    latex = re.sub(r'\\psalmheading(\{\\ch\{\d+\}.*?\})(\n|)(.*?\n)', r'\\begin{psalmheading}\1\2\3\\end{psalmheading}\n', latex, flags=re.M)
     
     return latex
 

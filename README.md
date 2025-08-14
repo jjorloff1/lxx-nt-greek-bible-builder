@@ -19,7 +19,6 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Add book names to the running header
 - [x] Add chapter:verse references to the running header like most Bibles have 
 - [x] Keep all Psalm headings with the following paragraphs
-- [ ] Add front matter (copyright, editor, year, etc)
 
 ## TODO: Jesse
 - [x] fork repo
@@ -36,12 +35,9 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
     - [x] ΕΣΘΗΡ - Has quotes from alternate text I guess
     - [x] ΨΑΛΜΟΙ - Probably don't want drop caps
 - [x] Make verse numbers light grey
-- [ ] Psalms formatting
-  - [ ] chapter margin not right because of centering
-  - [ ] line breaks in psalms
 - [x] Page size (fit reader size)
 - [x] If I ever change page size ΜΑΛΑΧΙΑΣ dropcap will probably Need to be reset in the source tex
-- [ ] Fetch and add NT
+- [x] Fetch and add NT
   - [x] Make sure things like John 8, Mark 16 etc show as I would expect
   - [x] Dropcaps to fix: 
       - ΚΑΤΑ ΜΑΘΘΑΙΟΝ
@@ -78,7 +74,13 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
   - [x] Heb 2:6, word doesn't split and goes into margin.  Try "διε\-μαρ\-τύ\-ρα\-το" or \setmainlanguage{greek}
   - [x] 1 Timothy ἀγαθοεργεῖν, πρεσβυτέρας
 - [x] NT Page title
-- [ ] Update notation at the end of the doc
 - [x] put together NT and OT with 1 TOC
 - [-] compress TOC to one page?
 - [x] Update chapter counters at the beginning of books.
+- [ ] Psalms formatting
+  - [x] chapter margin not right because of centering
+  - [-] line breaks in psalms (adds 100 pages, not worth it unless I can guarantee thin paper)
+  - [ ] add masoretic text ps numbers
+- [ ] Remove notation at the end of the doc
+- [ ] Add a Preface
+- [ ] Add front matter (copyright, editor, year, etc)
