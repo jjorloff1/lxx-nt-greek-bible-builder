@@ -77,6 +77,8 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Word out in margins.
   - [x] Heb 2:6, word doesn't split and goes into margin.  Try "διε\-μαρ\-τύ\-ρα\-το" or \setmainlanguage{greek}
   - [x] 1 Timothy ἀγαθοεργεῖν, πρεσβυτέρας
-- [ ] NT Page title
+- [x] NT Page title
 - [ ] Update notation at the end of the doc
-- [ ] put together NT and OT with 1 TOC
+- [x] put together NT and OT with 1 TOC
+- [-] compress TOC to one page?
+- [x] Update chapter counters at the beginning of books.

@@ -102,7 +102,11 @@
 % Chapter and Heading Styles
 
 \let\oldbiblebook\biblebook
-\renewcommand{\biblebook}[1]{\textcolor{bookheadingcolor}{\oldbiblebook{#1}}}
+\renewcommand{\biblebook}[1]{%
+  \setcounter{mychapter}{1}%
+  \textcolor{bookheadingcolor}{\oldbiblebook{#1}}%
+  \markboth{\book\ \themychapter:#1}{\book\ \themychapter:#1}%
+}
 
 \let\oldch\ch
 \renewcommand{\ch}[1]{%
