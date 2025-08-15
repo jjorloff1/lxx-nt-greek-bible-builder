@@ -108,12 +108,12 @@ def psalmchap_replacer(match):
     psalm_num = match.group(1)
     rest = match.group(2)
     masch_val = get_maschal_value(psalm_num)
-    return f'\\psalmheading{{\\ch{{{psalm_num}}}\\masch{{{masch_val}}} {rest}}}'
+    return f'\\psalmheading{{\\ch{{{psalm_num}}}{{{masch_val}}} {rest}}}'
 
 def psalmchap_pp_replacer(match):
     psalm_num = match.group(1)
     masch_val = get_maschal_value(psalm_num)
-    return f'\\ch{{{psalm_num}}}\\masch{{{masch_val}}}'
+    return f'\\ch{{{psalm_num}}}{{{masch_val}}}'
 
 def process_latex(latex):
     # Apply transformations to the text

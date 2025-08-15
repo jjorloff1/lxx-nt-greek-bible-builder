@@ -171,16 +171,17 @@
   \let\origch\ch
   \newenvironment{psalms}
     {
-      \renewcommand{\ch}[1]{%
+      \renewcommand{\ch}[2]{%
         \setcounter{mychapter}{##1}%
         \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%
         \vspace{\baselineskip}
+        \Needspace{6\baselineskip}
         \begin{center}
-        {\upshape{\Large\textbf{\textcolor{bookheadingcolor}{ΨΑΛΜΟΣ ##1}}}}
+          {\upshape{\Large\textbf{\textcolor{bookheadingcolor}{ΨΑΛΜΟΣ ##1}}}}\\
+          {\itshape{\textbf{\textcolor{bookheadingcolor}{(ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ##2)}}}}
+        \end{center}
       }
       \newcommand{\masch}[1]{%
-        {\upshape{\Large\textbf{\textcolor{bookheadingcolor}{(ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ##1)}}}}
-        \end{center}
       }
     }
     {
