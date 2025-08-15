@@ -47,11 +47,11 @@ nt_title_page = r"""\cleardoublepage
 def toc_section(section_title):
     return r"""\cleardoublepage
 \pagestyle{empty}
-\begingroup
-\centering
-{\huge %s \par}
-\vspace{1em}
-\endgroup
+# \begingroup
+# \centering
+# {\huge %s \par}
+# \vspace{1em}
+# \endgroup
 
 \begin{multicols}{2}
 \makeatletter
