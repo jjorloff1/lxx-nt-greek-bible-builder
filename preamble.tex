@@ -20,6 +20,7 @@
 \usepackage{xcolor}
 \definecolor{bookheadingcolor}{HTML}{9B3A3F}
 \definecolor{versenumbercolor}{HTML}{909090}
+\definecolor{altchaptercolor}{HTML}{1C2D5C}
 
 % % Use a different font for Greek (with Latin fallback)
 % % https://tex.stackexchange.com/a/619560/319804
@@ -166,23 +167,24 @@
     \vspace{0.5\baselineskip}%
   }
 
+  \usepackage{needspace}
+  \let\origch\ch
   \newenvironment{psalms}
     {
-      \let\oldpsch\ch
-      \renewcommand{\ch}[1]{\vspace{\baselineskip}\oldpsch{##1}}
+      \renewcommand{\ch}[1]{%
+        \setcounter{mychapter}{##1}%
+        \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%
+        \vspace{\baselineskip}
+        \begin{center}
+        {\upshape{\Large\textbf{\textcolor{bookheadingcolor}{ΨΑΛΜΟΣ ##1}}}}
+      }
+      \newcommand{\masch}[1]{%
+        {\upshape{\Large\textbf{\textcolor{bookheadingcolor}{(ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ##1)}}}}
+        \end{center}
+      }
     }
-    {}
+    {
+      \renewcommand{\ch}{\origch}
+    }
 
 \sloppy
-
-% \newcommand{\partsubtitle}{}
-
-% \titleformat{\part}[display]
-%   {\centering\normalfont\Huge\bfseries}
-%   {}
-%   {0pt}
-%   {
-%     \vspace*{3cm}
-%     #1\\[2em]
-%     {\large\partsubtitle}
-%   }

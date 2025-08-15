@@ -80,7 +80,8 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [ ] Psalms formatting
   - [x] chapter margin not right because of centering
   - [-] line breaks in psalms (adds 100 pages, not worth it unless I can guarantee thin paper)
-  - [ ] add masoretic text ps numbers
+  - [x] add masoretic text ps numbers
+  - [x] make sure counters are being updated correctly
 - [ ] Remove notation at the end of the doc
 - [ ] Add a Preface
 - [ ] Add front matter (copyright, editor, year, etc)
