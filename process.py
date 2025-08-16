@@ -17,6 +17,56 @@ lxx_to_mas_psalms = {"1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6",
                      "145": "146", "146": "147:1-11", "147": "147:12-20", "148": "148", "149": "149", "150": "150", "151": None}
 first_chapter_pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\VerseOne\{1\}\s*)([Α-Ωα-ω\u0370-\u03FF\u1F00-\u1FFF])([^\s]*)'
 
+preface = r"""\cleardoublepage
+\begin{titlepage}
+  \begin{center}
+    \textcolor{bookheadingcolor}{\Huge\textbf{Preface}}\par
+  \end{center}
+  \vspace{2em}
+  
+  This project was undertaken in love and respect for the Bible, with a desire to have an accessible and
+  beautiful Greek Bible available in print to anyone who would like one. While there are many great Greek
+  New Testaments available in print, the Septuagint has been less accessible, particularly in a format that
+  is both compact and minimalist. Most of the Septuagints available in print are quite large. Additionally,
+  there are almost no complete Greek Bibles available to purchase for a reasonable price. I have undertaken
+  this project for those out there who, like me, who want to be able to take a physical Greek Bible along 
+  with them where ever they want to go.
+
+  When I started this project, I went hunting for open and public domain edition of the Septuagint and the NT
+  that I could use as the text to this bible. While there are several great options out there, I settled on
+  the Brenton Septuagint and the OpenGNT new testament. The reason for choosing Brenton's Septuagint was simple:
+  I found a great open source project that had already digitized the text and prepared it for print: 
+  https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project/. Starting with this baseline, I was able to
+  style the text in a way that I liked. Then I had to find and prepare a NT Text.
+
+  For the NT I chose the Open GNT (https://opengnt.com/) which was prepared by Eliran Wong and released under
+  the Creative Commons Attribution 4.0 International License (CC BY 4.0). This project was created "to offer a 
+  FREE NA-equivalent text of Greek New Testament, compiled from open-resources" and provided access to the text
+  in a format that I could adapt to my needs.
+
+  As for formatting, I was inspired by some of the beautiful minimalist reader bibles available in English. As
+  much as possible, I wanted to keep the text front and center, eliminating distractions and unnecessary elements.
+  I have tried to mitigate the distraction from things like section headings, spacing between chapters, and even
+  chapter numbers to some degree. I ultimately decided to leave verse numbers in place, because I think navigating
+  the Old Testament may have been more difficult without them; however, I tried to minimize their visual impact.
+  My goal is to facilitate a novel-like reading experience, free of distractions.
+
+  The source code that I have used to extract, process, and format the texts used for this Bible is available 
+  free of charge at https://github.com/jjorloff1/lxx-nt-greek-bible-builder.
+
+  I hope that this Greek Bible will serve you well as you study and meditate on the Scriptures.
+  Glory to God!
+
+  \vfill
+  \begin{flushright}
+    {\large\textit{Jesse Orloff}\par}
+    {\large www.jesseorloff.com\par}
+    {\large August 2025\par}
+  \end{flushright}  
+\end{titlepage}
+
+"""
+
 ot_title_page = r"""\cleardoublepage
 \thispagestyle{empty}
 \vspace*{3cm}
@@ -47,26 +97,22 @@ nt_title_page = r"""\cleardoublepage
 def toc_section(section_title):
     return r"""\cleardoublepage
 \pagestyle{empty}
-# \begingroup
-# \centering
-# {\huge %s \par}
-# \vspace{1em}
-# \endgroup
+\begingroup
+\centering
+{\Large \textcolor{bookheadingcolor}{%s} \par}
+\endgroup
 
 \begin{multicols}{2}
 \makeatletter
 \renewcommand{\tableofcontents}{\@starttoc{toc}}
 \makeatother
-\tableofcontents
+{\small \tableofcontents}
 \end{multicols}
 \pagestyle{fancy}
 
 """ % section_title
 
-FOOT = r"""\vfill
-\setlength{\parindent}{0cm}
-\fontsize{8}{10}\selectfont{This greek texts used by this work are in the public domain.}
-
+FOOT = r"""
 \end{spacing}
 \end{document}"""
 
@@ -184,6 +230,7 @@ def main():
                 nt_latex = process_latex(ntfile.read())
                 # Main title page (with preamble)
                 output.write(title_page(main_title, None, include_preamble=True))
+                output.write(preface)
                 output.write(toc_section("Table of Contents"))
                 # OT section
                 output.write(ot_title_page)
@@ -197,6 +244,7 @@ def main():
             with open(args.ot, "r", encoding="utf-8") as otfile:
                 ot_latex = process_latex(otfile.read())
                 output.write(title_page(ot_title, ot_author, include_preamble=True))
+                output.write(preface)
                 output.write(toc_section("Table of Contents"))
                 output.write(ot_latex)
                 output.write(FOOT)
@@ -205,6 +253,7 @@ def main():
             with open(args.nt, "r", encoding="utf-8") as ntfile:
                 nt_latex = process_latex(ntfile.read())
                 output.write(title_page(nt_title, nt_author, include_preamble=True))
+                output.write(preface)
                 output.write(toc_section("Table of Contents"))
                 output.write(nt_latex)
                 output.write(FOOT)

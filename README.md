@@ -62,7 +62,7 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
         - These two don't seem to want to work, because their placement would be in the larger left margin
         - [x] Col 4:1 〔51｜4｜1〕
         - [x] 1 Tim 3:1.  〔54｜3｜1〕 In NA 28, this verse is broken between paragraphs, but the first part of the verse is actually part of the last paragrah, and this is not typical for a new chapter to start mid-paragraph
-    - [ ] Kata markon 15:1, header verse reference is one verse behind. Low priority, this could change if anything shifts on the page.
+    - [-] Kata markon 15:1, header verse reference is one verse behind. Low priority, this could change if anything shifts on the page.
   - [ ] Random stuff
     - [x] Special Characters: ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β -  ἀλλὰ συνκακοπάθησον= τῷ εὐαγγελίῳ κατὰ δύναμιν Θεοῦ,
       - [x] '＋' means Greek word, which are not in original Berean Greek data, 3 words adapted from Byzantine text, 2 words adapted from BHP;
@@ -77,11 +77,12 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] put together NT and OT with 1 TOC
 - [-] compress TOC to one page?
 - [x] Update chapter counters at the beginning of books.
-- [ ] Psalms formatting
+- [x] Psalms formatting
   - [x] chapter margin not right because of centering
   - [-] line breaks in psalms (adds 100 pages, not worth it unless I can guarantee thin paper)
   - [x] add masoretic text ps numbers
   - [x] make sure counters are being updated correctly
-- [ ] Remove notation at the end of the doc
-- [ ] Add a Preface
-- [ ] Add front matter (copyright, editor, year, etc)
+  - [x] style psalm headings
+- [x] Remove notation at the end of the doc
+- [x] Add a Preface
+- [-] Add front matter (copyright, editor, year, etc)

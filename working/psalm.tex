@@ -8,7 +8,62 @@
 \begin{spacing}{1.1}
 \maketitle
 
-\tableofcontents
+\cleardoublepage
+\begin{titlepage}
+  \begin{center}
+    \textcolor{bookheadingcolor}{\Huge\textbf{Preface}}\par
+  \end{center}
+  \vspace{2em}
+  
+  This project was undertaken in love and respect for the Bible, with a desire to have an accessible and
+  beautiful Greek Bible available in print to anyone who would like one. While there are many great Greek
+  New Testaments available in print, the Septuagint has been less accessible, particularly in a format that
+  is both compact and minimalist. Most of the Septuagints available in print are quite large. Additionally,
+  there are almost no complete Greek Bibles available to purchase for a reasonable price. I have undertaken
+  this project for those out there who, like me, who want to be able to take a physical Greek Bible along 
+  with them where ever they want to go.
+
+  When I started this project, I went hunting for open and public domain edition of the Septuagint and the NT
+  that I could use as the text to this bible. While there are several great options out there, I settled on
+  the Brenton Septuagint and the OpenGNT new testament. The reason for choosing Brenton's Septuagint was simple:
+  I found a great open source project that had already digitized the text and prepared it for print: 
+  https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project/. Starting with this baseline, I was able to
+  style the text in a way that I liked. Then I had to find and prepare a NT Text.
+
+  For the NT I chose the Open GNT (https://opengnt.com/) which was prepared by Eliran Wong and released under
+  the Creative Commons Attribution 4.0 International License (CC BY 4.0). This project was created "to offer a 
+  FREE NA-equivalent text of Greek New Testament, compiled from open-resources" and provided access to the text
+  in a format that I could adapt to my needs.
+
+  The source code that I have used to extract, process, and format the texts used for this Bible is available 
+  free of charge at https://github.com/jjorloff1/lxx-nt-greek-bible-builder.
+
+  I hope that this Greek Bible will serve you well as you study and meditate on the Scriptures.
+  Glory to God!
+
+  \vfill
+  \begin{flushright}
+    {\large\textit{Jesse Orloff}\par}
+    {\large www.jesseorloff.com\par}
+    {\large August 2025\par}
+  \end{flushright}  
+\end{titlepage}
+
+
+\cleardoublepage
+\pagestyle{empty}
+\begingroup
+\centering
+{\Large \textcolor{bookheadingcolor}{Table of Contents} \par}
+\endgroup
+
+\begin{multicols}{2}
+\makeatletter
+\renewcommand{\tableofcontents}{\@starttoc{toc}}
+\makeatother
+{\small \tableofcontents}
+\end{multicols}
+\pagestyle{fancy}
 
 \def\book{ΨΑΛΜΟΙ}
 \biblebook{ΨΑΛΜΟΙ}
@@ -3307,10 +3362,6 @@
 \vs{7}Ἐγὼ δὲ σπασάμενος τὴν παρʼ αὐτοῦ μάχαιραν, ἀπεκεφάλισα αὐτόν, καὶ ᾖρα ὄνειδος ἐξ υἱῶν Ἰσραήλ.
 \end{psalms}
 
-
-\vfill
-\setlength{\parindent}{0cm}
-\fontsize{8}{10}\selectfont{This work is in the public domain. \\The text source is available at: \underline{https://ebible.org/Scriptures/details.php?id=grcbrent}. \\This PDF file created by MrGreekGeek, available from \underline{https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project}.}
 
 \end{spacing}
 \end{document}
