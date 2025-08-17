@@ -54,14 +54,14 @@
 \pagestyle{empty}
 \begingroup
 \centering
-{\Large \textcolor{bookheadingcolor}{Table of Contents} \par}
+{\LARGE \textcolor{bookheadingcolor}{Table of Contents} \par}
 \endgroup
 
 \begin{multicols}{2}
 \makeatletter
 \renewcommand{\tableofcontents}{\@starttoc{toc}}
 \makeatother
-{\small \tableofcontents}
+\tableofcontents
 \end{multicols}
 \pagestyle{fancy}
 

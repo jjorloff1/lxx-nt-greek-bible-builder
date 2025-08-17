@@ -20,7 +20,7 @@ first_chapter_pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\Ve
 preface = r"""\cleardoublepage
 \begin{titlepage}
   \begin{center}
-    \textcolor{bookheadingcolor}{\Huge\textbf{Preface}}\par
+    \textcolor{bookheadingcolor}{\Huge Preface}\par
   \end{center}
   \vspace{2em}
   
@@ -29,11 +29,11 @@ preface = r"""\cleardoublepage
   New Testaments available in print, the Septuagint has been less accessible, particularly in a format that
   is both compact and minimalist. Most of the Septuagints available in print are quite large. Additionally,
   there are almost no complete Greek Bibles available to purchase for a reasonable price. I have undertaken
-  this project for those out there who, like me, who want to be able to take a physical Greek Bible along 
+  this project for those out there who, like me, want to take a physical Greek Bible along 
   with them where ever they want to go.
 
-  When I started this project, I went hunting for open and public domain edition of the Septuagint and the NT
-  that I could use as the text to this bible. While there are several great options out there, I settled on
+  When I started this project, I went hunting for open and public domain editions of the Septuagint and the NT
+  that I could use as the texts for this Bible. While there are several great options out there, I settled on
   the Brenton Septuagint and the OpenGNT new testament. The reason for choosing Brenton's Septuagint was simple:
   I found a great open source project that had already digitized the text and prepared it for print: 
   https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project/. Starting with this baseline, I was able to
@@ -44,7 +44,7 @@ preface = r"""\cleardoublepage
   FREE NA-equivalent text of Greek New Testament, compiled from open-resources" and provided access to the text
   in a format that I could adapt to my needs.
 
-  As for formatting, I was inspired by some of the beautiful minimalist reader bibles available in English. As
+  As for formatting, I was inspired by some of the beautiful minimalist reader Bibles available in English. As
   much as possible, I wanted to keep the text front and center, eliminating distractions and unnecessary elements.
   I have tried to mitigate the distraction from things like section headings, spacing between chapters, and even
   chapter numbers to some degree. I ultimately decided to leave verse numbers in place, because I think navigating
@@ -99,14 +99,14 @@ def toc_section(section_title):
 \pagestyle{empty}
 \begingroup
 \centering
-{\Large \textcolor{bookheadingcolor}{%s} \par}
+{\huge \textcolor{bookheadingcolor}{%s} \par}
 \endgroup
 
 \begin{multicols}{2}
 \makeatletter
 \renewcommand{\tableofcontents}{\@starttoc{toc}}
 \makeatother
-{\small \tableofcontents}
+\tableofcontents
 \end{multicols}
 \pagestyle{fancy}
 
