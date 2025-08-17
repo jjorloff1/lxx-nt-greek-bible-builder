@@ -86,3 +86,4 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Remove notation at the end of the doc
 - [x] Add a Preface
 - [-] Add front matter (copyright, editor, year, etc)
+- [ ] The spacing is slightly different between normal margin chapters and those that start in the middle of a paragraph (see colossians and 1 Tim 3/4)
