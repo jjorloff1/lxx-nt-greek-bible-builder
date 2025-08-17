@@ -123,6 +123,12 @@
   \end{tikzpicture}%
 }
 
+\newcommand{\rightabsblock}[2]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=base east] at ([xshift=-#1]current page.east|-here) {#2};
+  \end{tikzpicture}%
+}
+
 \usepackage{ifoddpage}
 \usepackage{marginnote}
 \newcommand{\inparch}[1]{%
@@ -131,9 +137,10 @@
   \checkoddpage
   \ifoddpage
     \tikz[remember picture] \coordinate (here);%
-    \leftabsblock{1cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}\hspace*{10em}}}%
+    \rightabsblock{13.76cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}}%
   \else
-    \marginnote[\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}]{}%
+    \tikz[remember picture] \coordinate (here);%
+    \rightabsblock{14.26cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}}%
   \fi
 }
 
