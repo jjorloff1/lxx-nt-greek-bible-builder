@@ -176,6 +176,7 @@
     \vspace{0.5\baselineskip}%
   }
 
+  \usepackage{ifthen} 
   \usepackage{needspace}
   \let\origch\ch
   \newenvironment{psalms}
@@ -187,7 +188,9 @@
         \Needspace{6\baselineskip}
         \begin{center}
           {\upshape{\Large\textbf{\textcolor{bookheadingcolor}{ΨΑΛΜΟΣ ##1}}}}\\
-          {\itshape{\textbf{\textcolor{bookheadingcolor}{(ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ##2)}}}}
+          \ifthenelse{\equal{##2}{}}%
+            {}% If ##2 is blank, do nothing
+            {\itshape{\textbf{\textcolor{bookheadingcolor}{(ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ##2)}}}}% If not blank, render the line
         \end{center}
       }
       \newcommand{\masch}[1]{%

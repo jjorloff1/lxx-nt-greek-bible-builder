@@ -87,3 +87,10 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
 - [x] Add a Preface
 - [-] Add front matter (copyright, editor, year, etc)
 - [x] The spacing is slightly different between normal margin chapters and those that start in the middle of a paragraph (see colossians and 1 Tim 3/4)
+<<<<<<< Updated upstream
+=======
+- [x] Adjust to pt 9 font
+  - [x] ΜΑΛΑΧΙΑΣ now needs post drop cap fix
+  - [x] move title up page by like 1/4
+- [x] (ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ) needs to be removed from psalm 151
+>>>>>>> Stashed changes
