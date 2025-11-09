@@ -48,7 +48,8 @@ chapters_continuing_paragraphs = {43: [8], 46: [11], 47: [2], 51: [4], 54: [3]}
 
 def clean_word(word_html):
     # Remove tags and extract text/punctuation
-    word = re.sub(r'<.*?>', '', word_html)
+    word = re.sub(r'<sup>.*?</sup>', '', word_html) # Remove super scripts
+    word = re.sub(r'<.*?>', '', word)
     return word
 
 def parse_csv(csv_path):
