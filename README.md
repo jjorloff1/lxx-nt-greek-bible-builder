@@ -92,6 +92,14 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
   - [x] move title up page by like 1/4
 - [x] (ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ) needs to be removed from psalm 151
 - [x] extra 2 in Luke 18:4
+- [ ] make toc slightly larger in 8p font mode
+- [ ] verify 8 font
+  - [x] Dropcaps
+  - [x] Mid paragraph chapter starts
+      * 1075-1071
+  - [x] single page chapters
+  - [x] chapter endings
+  - [] rev ch 2,3 first and second line spacing
 - [] Empty Pages:
   - [] end of isaiah
   - [] end of acts

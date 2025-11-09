@@ -106,7 +106,7 @@ def toc_section(section_title):
 \makeatletter
 \renewcommand{\tableofcontents}{\@starttoc{toc}}
 \makeatother
-\tableofcontents
+\large\tableofcontents
 \end{multicols}
 \pagestyle{fancy}
 
