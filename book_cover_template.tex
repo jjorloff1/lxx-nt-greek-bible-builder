@@ -33,14 +33,23 @@
 
 % Title text:
 \newcommand{\CoverTitle}{Η ΑΓΙΑ ΓΡΑΦΗ}
+\newcommand{\SubtitleEnglish}{The Holy Bible}
+\newcommand{\SubtitleGreek}{The Septuagint and The New Testament}
+
+% Colors:
+\definecolor{CoverBackground}{RGB}{0,0,0}      % Black background
+\definecolor{CoverText}{RGB}{255,255,255}       
 
 % Title placement on FRONT (fraction down from top; 0=top, 1=bottom)
 % 1/3 down from top => y = 1/3 of total height below top (i.e., 2/3 from bottom)
 \newcommand{\FrontTitleDownFromTop}{0.333}  % change e.g. to 0.25 for closer to top
 
 % Title font sizes (points):
-\newcommand{\FrontTitleSize}{48pt}
-\newcommand{\SpineTitleSize}{36pt}
+\newcommand{\FrontTitleSize}{36pt}          % Reduced from 48pt
+\newcommand{\FrontSubtitleSize}{18pt}       % For English subtitle
+\newcommand{\FrontSubtitleSmallSize}{14pt}  % For Greek subtitle
+\newcommand{\SpineTitleSize}{16pt}          % Horizontal text on spine
+\newcommand{\SpineSubtitleSize}{10pt}       % Smaller subtitle on spine
 
 % Optional: show guides (bleed/trim) — set to 1 to show, 0 to hide
 \newcommand{\ShowGuides}{1}
@@ -91,8 +100,8 @@
 \ComputeFrontTitleY
 
 \begin{tikzpicture}[x=1in,y=1in]
-  % Background (full-bleed white rectangle)
-  \fill [white] (0,0) rectangle (\TotalW, \TotalH);
+  % Background (full-bleed black rectangle) - extended beyond bounds to ensure no white edges
+  \fill [CoverBackground] (-0.1in,-0.1in) rectangle (\TotalW+0.1in, \TotalH+0.1in);
 
   % --- Guides ---
   \ifthenelse{\equal{\ShowGuides}{1}}{%
@@ -110,12 +119,36 @@
   }{}
 
   % --- FRONT TITLE ---
-  \node[align=center, text=black] at (\FrontCenterX, \FrontTitleY)
-    {\fontsize{\FrontTitleSize}{56pt}\selectfont \CoverTitle};
+  \node[align=center, text=CoverText] at (\FrontCenterX, \FrontTitleY)
+    {\fontsize{\FrontTitleSize}{40pt}\selectfont \CoverTitle};
+  
+  % --- FRONT SUBTITLES ---
+  % English subtitle
+  \node[align=center, text=CoverText] at (\FrontCenterX, \FrontTitleY - 0.6in)
+    {\textenglish{\fontsize{\FrontSubtitleSize}{22pt}\selectfont \SubtitleEnglish}};
+  
+  % Greek subtitle (smaller)
+  \node[align=center, text=CoverText] at (\FrontCenterX, \FrontTitleY - 1.2in)
+    {\fontsize{\FrontSubtitleSmallSize}{18pt}\selectfont \SubtitleGreek};
+  
+  % "in Greek" text below subtitle
+  \node[align=center, text=CoverText] at (\FrontCenterX, \FrontTitleY - 1.5in)
+    {\fontsize{\FrontSubtitleSmallSize}{18pt}\selectfont in Greek};
 
-  % --- SPINE TITLE ---
-  \node[align=center, text=black, rotate=90] at (\SpineCenterX, \CenterY)
-    {\fontsize{\SpineTitleSize}{42pt}\selectfont \CoverTitle};
+  % --- SPINE TITLE (HORIZONTAL) ---
+  % Position slightly higher to align with front title (compensating for font size difference)
+  \newdimen\SpineTitleY
+  \SpineTitleY=\dimexpr\FrontTitleY + 0.07in\relax
+  \node[align=center, text=CoverText] at (\SpineCenterX, \SpineTitleY)
+    {\fontsize{\SpineTitleSize}{20pt}\selectfont \CoverTitle};
+  
+  % --- SPINE SUBTITLES (HORIZONTAL) ---
+  \node[align=center, text=CoverText] at (\SpineCenterX, \SpineTitleY - 0.35in)
+    {\textenglish{\fontsize{\SpineSubtitleSize}{12pt}\selectfont \SubtitleEnglish}};
+  
+  % Greek subtitle broken into 3 lines
+  \node[align=center, text=CoverText] at (\SpineCenterX, \SpineTitleY - 1.2in)
+    {\fontsize{\SpineSubtitleSize}{14pt}\selectfont\baselineskip=14pt The Septuagint \\[2pt] and \\[2pt] The New Testament \\[2pt] in Greek};
 
   % Back cover is intentionally blank (minimalist design).
 
