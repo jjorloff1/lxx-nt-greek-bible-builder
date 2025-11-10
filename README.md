@@ -99,7 +99,8 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
       * 1075-1071
   - [x] single page chapters
   - [x] chapter endings
-  - [] rev ch 2,3 first and second line spacing
+  - [-] rev ch 2,3 first and second line spacing
+- [] Make John's  \vs{23}Ἔφη· start a new paragraph in source material
 - [] Empty Pages:
   - [] end of isaiah
   - [] end of acts
