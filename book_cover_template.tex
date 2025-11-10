@@ -1,0 +1,123 @@
+% === Flexible Paperback Cover Template (Front + Spine + Back) ===
+% Compile with:    lualatex book_cover_template.tex   (or xelatex)
+% Adjust the parameters in Section 1.
+% Coordinates are in INCHES.
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{ifthen}
+\usepackage{fontspec}          % Requires LuaLaTeX/XeLaTeX
+\usepackage{polyglossia}
+\setdefaultlanguage{greek}     % Greek content support
+\setotherlanguage{english}
+
+% --- Fonts ---
+% Choose a font that supports Greek. Common options include: "TeX Gyre Pagella", "DejaVu Serif", "Noto Serif".
+% If compilation fails due to missing font, switch to another available font.
+\setmainfont{Gentium}
+
+% ===============================================================
+% 1) PARAMETERS — edit these to change size, spine, bleed, text
+% ===============================================================
+% Trim size (without bleed):
+\newdimen\FrontW   \FrontW=6in   % front cover width
+\newdimen\BackW    \BackW=6in    % back cover width
+\newdimen\TrimH    \TrimH=9in    % book height (trim)
+
+% Spine:
+\newdimen\SpineW   \SpineW=2.35in
+
+% Bleed (Snowfall Press typical: 0.125in):
+\newdimen\Bleed    \Bleed=0.125in
+
+% Title text:
+\newcommand{\CoverTitle}{Η ΑΓΙΑ ΓΡΑΦΗ}
+
+% Title placement on FRONT (fraction down from top; 0=top, 1=bottom)
+% 1/3 down from top => y = 1/3 of total height below top (i.e., 2/3 from bottom)
+\newcommand{\FrontTitleDownFromTop}{0.333}  % change e.g. to 0.25 for closer to top
+
+% Title font sizes (points):
+\newcommand{\FrontTitleSize}{48pt}
+\newcommand{\SpineTitleSize}{36pt}
+
+% Optional: show guides (bleed/trim) — set to 1 to show, 0 to hide
+\newcommand{\ShowGuides}{1}
+
+% Background color (white by default)
+% \pagecolor[rgb]{1,1,1}
+
+% ===============================================================
+% 2) DERIVED DIMENSIONS — do not edit (computed from above)
+% ===============================================================
+\newdimen\TotalW   \TotalW=\dimexpr \BackW+\SpineW+\FrontW+2\Bleed\relax
+\newdimen\TotalH   \TotalH=\dimexpr \TrimH+2\Bleed\relax
+
+% Panel starts (from left edge, including bleed)
+\newdimen\BackX    \BackX=\Bleed
+\newdimen\SpineX   \SpineX=\dimexpr \Bleed+\BackW\relax
+\newdimen\FrontX   \FrontX=\dimexpr \Bleed+\BackW+\SpineW\relax
+
+% Centers:
+\newdimen\FrontCenterX \FrontCenterX=\dimexpr \FrontX + 0.5\FrontW\relax
+\newdimen\SpineCenterX \SpineCenterX=\dimexpr \SpineX + 0.5\SpineW\relax
+\newdimen\CenterY      \CenterY=\dimexpr 0.5\TotalH\relax
+
+% Front title Y position: 1/3 down from top = (1 - 1/3) from bottom = 2/3 of height
+\newdimen\FrontTitleY
+% \FrontTitleDownFromTop is a decimal; convert to dimen via pgfmath
+\usepackage{pgfmath}
+\newcommand{\ComputeFrontTitleY}{%
+  \pgfmathsetmacro{\frontTitleFactor}{1 - \FrontTitleDownFromTop}% fraction from bottom
+  \pgfmathsetlength{\FrontTitleY}{\frontTitleFactor\TotalH}% convert to TeX dimen
+}
+
+% ===============================================================
+% 3) PAGE SIZE OVERRIDE — set the actual PDF size from parameters
+% ===============================================================
+\makeatletter
+\AtBeginDocument{%
+  \setlength{\pdfpagewidth}{\TotalW}%
+  \setlength{\pdfpageheight}{\TotalH}%
+}
+\makeatother
+
+% ===============================================================
+% 4) DRAW
+% ===============================================================
+\begin{document}
+\thispagestyle{empty}
+\ComputeFrontTitleY
+
+\begin{tikzpicture}[x=1in,y=1in]
+  % Background (full-bleed white rectangle)
+  \fill [white] (0,0) rectangle (\TotalW, \TotalH);
+
+  % --- Guides ---
+  \ifthenelse{\equal{\ShowGuides}{1}}{%
+    % Outer bleed box
+    \draw [gray!60, line width=0.3pt] (0,0) rectangle (\TotalW,\TotalH);
+    % Trim box
+    \draw [gray!60, line width=0.3pt, dash pattern=on 2pt off 2pt]
+      (\Bleed, \Bleed) rectangle (\TotalW-\Bleed, \TotalH-\Bleed);
+    % Panel guides (back | spine | front)
+    \draw [gray!60, line width=0.3pt] (\BackX,0) -- (\BackX,\TotalH);
+    \draw [gray!60, line width=0.3pt] (\SpineX,0) -- (\SpineX,\TotalH);
+    \draw [gray!60, line width=0.3pt] (\FrontX,0) -- (\FrontX,\TotalH);
+    % Center lines (optional)
+    % \draw [gray!30, line width=0.2pt] (0,\CenterY) -- (\TotalW,\CenterY);
+  }{}
+
+  % --- FRONT TITLE ---
+  \node[align=center, text=black] at (\FrontCenterX, \FrontTitleY)
+    {\fontsize{\FrontTitleSize}{56pt}\selectfont \CoverTitle};
+
+  % --- SPINE TITLE ---
+  \node[align=center, text=black, rotate=90] at (\SpineCenterX, \CenterY)
+    {\fontsize{\SpineTitleSize}{42pt}\selectfont \CoverTitle};
+
+  % Back cover is intentionally blank (minimalist design).
+
+\end{tikzpicture}
+\end{document}
