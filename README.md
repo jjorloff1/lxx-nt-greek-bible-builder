@@ -19,9 +19,9 @@ python concat.py nt
 python concat.py ot
 ```
 
-3. Process and compile the OT and NT into a single finalized Latex file.  Note, if you would like to build just an OT or just a NT, you can leave out the arguments for the one you don't want, and the script will handle it.
+3. Process and compile the OT and NT into a single finalized Latex file.  Note, if you would like to build just an OT or just a NT, you can leave out the arguments for the one you don't want, and the script will handle it. The `--color` switch is optional, if used will style the headers and chapter numbers with a nice deep red.
 ```
-python process.py --ot concatenated-ot.tex --nt concatenated-nt.tex --output Bible.tex
+python process.py --ot concatenated-ot.tex --nt concatenated-nt.tex --output Bible.tex [--color]
 ```
 
 4. Run Xelatex twice to build a pdf. The first time you run this command it will build the PDF with all of the text and pages in the right place, but it will not build the TOC.  You will need to run the same command again to build the TOC.

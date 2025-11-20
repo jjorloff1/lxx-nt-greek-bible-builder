@@ -124,10 +124,19 @@ def lettrine_replacer(match):
     # Use your color and lettrine settings
     return f'{prefix}\\lettrine[lines=2, loversize=0.2, nindent=0em, findent=.25em]{{\\textcolor{{bookheadingcolor}}{{{first_letter}}}}}{{{rest_of_word}}}'
 
-def title_page(title, author=None, include_preamble=False):
+def get_preamble_with_color(use_color=False):
+    """Generate preamble line with appropriate color setting"""
+    if use_color:
+        color_def = r"\definecolor{bookheadingcolor}{HTML}{9B3A3F} % 9B3A3F - Deep red"
+    else:
+        color_def = r"\definecolor{bookheadingcolor}{HTML}{000000} % 000000 - Pure black for B&W printing"
+    
+    return f"\\input{{preamble.tex}}\n% Override color setting\n{color_def}\n\n"
+
+def title_page(title, author=None, include_preamble=False, use_color=False):
     s = ""
     if include_preamble:
-        s += f"\\input{{preamble.tex}}\n\n"
+        s += get_preamble_with_color(use_color)
     else:
         s += f"\\end{{spacing}}\n"
         
@@ -215,6 +224,7 @@ def main():
     parser.add_argument('--ot', help='OT input file')
     parser.add_argument('--nt', help='NT input file')
     parser.add_argument('--output', required=True, help='Output file')
+    parser.add_argument('--color', action='store_true', help='Use color headings (default is black and white)')
     args = parser.parse_args()
 
     ot_title = "Η ΠΑΛΑΙΑ ΔΙΑΘΗΚΗ"
@@ -230,7 +240,7 @@ def main():
                 ot_latex = process_latex(otfile.read())
                 nt_latex = process_latex(ntfile.read())
                 # Main title page (with preamble)
-                output.write(title_page(main_title, None, include_preamble=True))
+                output.write(title_page(main_title, None, include_preamble=True, use_color=args.color))
                 output.write(preface)
                 output.write(toc_section("Table of Contents"))
                 # OT section
@@ -244,7 +254,7 @@ def main():
             # OT only
             with open(args.ot, "r", encoding="utf-8") as otfile:
                 ot_latex = process_latex(otfile.read())
-                output.write(title_page(ot_title, ot_author, include_preamble=True))
+                output.write(title_page(ot_title, ot_author, include_preamble=True, use_color=args.color))
                 output.write(preface)
                 output.write(toc_section("Table of Contents"))
                 output.write(ot_latex)
@@ -253,7 +263,7 @@ def main():
             # NT only
             with open(args.nt, "r", encoding="utf-8") as ntfile:
                 nt_latex = process_latex(ntfile.read())
-                output.write(title_page(nt_title, nt_author, include_preamble=True))
+                output.write(title_page(nt_title, nt_author, include_preamble=True, use_color=args.color))
                 output.write(preface)
                 output.write(toc_section("Table of Contents"))
                 output.write(nt_latex)
