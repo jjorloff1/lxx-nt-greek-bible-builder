@@ -5,6 +5,31 @@ This repository's purpose is to make Brenton's Septuagint available in print-rea
 ## Download
 If you just want the most up to date version of the PDF file, click here to download it. [**Brenton LXX PDF**](https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project/releases/latest/download/Brenton.pdf)
 
+## Build Process
+To build a complete bible from the start, there is a series of steps that you will want to go through.  Note that the outputs of most of these steps have been committed, so you can likely start from the last step, unless you make changes to a source document or a script.
+
+1. Build the NT latex from the nt_data.  This step will transfor the text and markup from the xml-like format used in the source data into a base latex file for each book.
+```
+python generate_nt_latex.py
+```
+
+2. Concatenate both the NT and the OT.
+```
+python concat.py nt
+python concat.py ot
+```
+
+3. Process and compile the OT and NT into a single finalized Latex file.  Note, if you would like to build just an OT or just a NT, you can leave out the arguments for the one you don't want, and the script will handle it.
+```
+python process.py --ot concatenated-ot.tex --nt concatenated-nt.tex --output Bible.tex
+```
+
+4. Run Xelatex twice to build a pdf. The first time you run this command it will build the PDF with all of the text and pages in the right place, but it will not build the TOC.  You will need to run the same command again to build the TOC.
+```
+xelatex Bible.tex
+xelatex Bible.tex
+```
+
 ## Details
 **Brenton.pdf**  
 The main files in this repo are `Brenton.tex` and `Brenton.pdf`. If you want to print a book of your own, just download the latest release of [Brenton.pdf](https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project/releases/latest/download/Brenton.pdf) and send it to your local print shop or your favorite self-publishing company. I have used [Snowfall Press](https://www.snowfallpress.com/) with good results. (Choose their lightest paper, "White, 40# / 13LB Bond" as that will help keep the size and weight of the book down.)
@@ -15,12 +40,23 @@ The main files in this repo are `Brenton.tex` and `Brenton.pdf`. If you want to 
 ## Source and License
 The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scriptures/details.php?id=grcbrent) and is in the public domain. (The exact source for the files in `grcbrent_xetex` is the [ebible XeTeX file](https://ebible.org/Scriptures/grcbrent_xetex.zip). You can use the script `concat.py` to merge each individual book into one file (concatenated.tex) as we did here.) All of the code and `.tex` formatting are licensed [CC0-1.0 (public domain)](https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project/blob/main/LICENSE) and may be used and copied freely. May God get all the glory! 
 
-## TODO 
+The New Testament is the [OpenGNT](https://opengnt.com/).  I obtained the source from EliranWong's GitHub repo for the project [here](https://github.com/eliranwong/OpenGNT). This
+project aims to be an open source NA Equivelent NT edition. Open Greek New Testament Project by [Eliran Wong](https://marvel.bible/) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
+ 
+## Second Printing TODO: Jesse
+- [ ] Prepare to print with Ingram Spark (allows 1200 pages with 50# paper in color and hardcover)
+- [ ] Prepare to Printing B&W with Snowfall on 40# paper
+  - [ ] Change all Red's to solid black
+- [ ] Consider slightly wider page width 6" -> 6.5"?
+- [ ] Fix some typos:
+  - [ ] Gen 11:13: ἔξησε -> ἔζησε (in source)
+  - [ ] Gen 11:17: ἔξησεν -> ἔζησεν (in source)
+  - [ ] Gen 14:22: Κύπιον -> Κύριον (in source)
+
+## First Printing TODO: Jesse
 - [x] Add book names to the running header
 - [x] Add chapter:verse references to the running header like most Bibles have 
 - [x] Keep all Psalm headings with the following paragraphs
-
-## TODO: Jesse
 - [x] fork repo
 - [x] Single column
 - [x] Drop Cap
@@ -92,16 +128,16 @@ The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scr
   - [x] move title up page by like 1/4
 - [x] (ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ) needs to be removed from psalm 151
 - [x] extra 2 in Luke 18:4
-- [ ] make toc slightly larger in 8p font mode
-- [ ] verify 8 font
+- [x] make toc slightly larger in 8p font mode
+- [x] verify 8 font
   - [x] Dropcaps
   - [x] Mid paragraph chapter starts
       * 1075-1071
   - [x] single page chapters
   - [x] chapter endings
   - [-] rev ch 2,3 first and second line spacing
-- [] Make John's  \vs{23}Ἔφη· start a new paragraph in source material
-- [] Empty Pages:
-  - [] end of isaiah
-  - [] end of acts
-  - [] end of hebrews
+- [x] Make John's  \vs{23}Ἔφη· start a new paragraph in source material
+- [x] Empty Pages:
+  - [x] end of isaiah
+  - [x] end of acts
+  - [x] end of hebrews
