@@ -195,7 +195,7 @@ def process_latex(latex):
     # Clean up xetex formatting
     latex = re.sub(r'\\NormalFont\\ShortTitle\{.*?\}', r'', latex, flags=re.M)
     latex = re.sub(r'﻿', r'', latex, flags=re.M)
-    latex = re.sub(r'\. [Α-Ωϛ]+ʹ', r'', latex, flags=re.M)
+    latex = re.sub(r'\. [Α-Ωϛ]+ʹ', r'', latex, flags=re.M) # I think this is where ESDRAS A is losing its moniker
     latex = re.sub(r'^\\par }', r'', latex, flags=re.M)
     latex = re.sub(r'\{\\MM ', r'', latex, flags=re.M)
     latex = re.sub(r'\{\\IP ', r'', latex, flags=re.M)

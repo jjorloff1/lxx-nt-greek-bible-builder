@@ -47,25 +47,35 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
  
 ## Second Printing TODO: Jesse
 - [ ] Prepare to print with Ingram Spark (allows 1200 pages with 50# paper in color and hardcover)
-- [ ] Prepare to Printing B&W with Snowfall on 40# paper
-  - [ ] Change all Red's to solid black
-- [ ] Consider slightly wider page width 6" -> 6.5"?
+- [x] Prepare to Printing B&W with Snowfall on 40# paper
+  - [x] Change all Red's to solid black
+- [ ] ΕΣΔΡΑΣ (Ezrah + Nehemiah) book title not distinguished from ΕΣΔΡΑΣ Α.  Fix that.
+- [x] Split Ezrah and Nehemiah
+  - [x] Fix Numbers
+  - [x] Update concat and process
+  - [x] Fix TOC Spacing
+- [ ] Numbered books should consistently use Αʹ or Α.
 - [ ] Fix some typos:
   - [ ] Gen 11:13: ἔξησε -> ἔζησε (in source)
   - [ ] Gen 11:17: ἔξησεν -> ἔζησεν (in source)
   - [ ] Gen 14:22: Κύπιον -> Κύριον (in source)
   - [ ] Gen 15:2: Δέγει -> Λέγιε (in source)
-- [ ] 9p font
+  - [ ] Gen 16:2 ὑπήκουσελ -> υπηκουσεν
+  - [ ] Mannasah 1:1: παντοκράτωπ -> παντοκράτωρ
+- [x] 9p font
   - Reminder: Don't adjust the margins in snowfall this time.
   - [x] Font size
   - [x] Chapter spacing
   - [x] λέγοντες - ΑΠΟΚΑΛΥΨΙΣ ΙΩΑΝΝΟΥ 7:12
   - [x] Dropcaps
-  - [ ] General spacing
+  - [-] General spacing
   - [-] End of chapter spacings
     - ΜΑΚΚΑΒΑΙΩΝ Αʹ 16:24 one word on last page. - Probably not worth doing anything
     - ΖΑΧΑΡΙΑΣ 14:21 nothing on last page - Maybe not worth doing anything
     - ΑΜΒΑΚΟΥΜ 3:19 nothing on last page - Maybe not worth doing anything
+- [ ] Options to consider
+  - [ ] Consider not printing with LXX, or making it a flag/version
+  - [ ] Consider slightly wider page width 6" -> 6.5"?
 
 ## First Printing TODO: Jesse
 - [x] Add book names to the running header
