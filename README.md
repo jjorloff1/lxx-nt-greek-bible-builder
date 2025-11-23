@@ -49,12 +49,12 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
 - [ ] Prepare to print with Ingram Spark (allows 1200 pages with 50# paper in color and hardcover)
 - [x] Prepare to Printing B&W with Snowfall on 40# paper
   - [x] Change all Red's to solid black
-- [ ] ΕΣΔΡΑΣ (Ezrah + Nehemiah) book title not distinguished from ΕΣΔΡΑΣ Α.  Fix that.
+- [x] ΕΣΔΡΑΣ (Ezrah + Nehemiah) book title not distinguished from ΕΣΔΡΑΣ Α.  Fix that.
 - [x] Split Ezrah and Nehemiah
   - [x] Fix Numbers
   - [x] Update concat and process
   - [x] Fix TOC Spacing
-- [ ] Numbered books should consistently use Αʹ or Α.
+- [x] Numbered books should consistently use Αʹ or Α.
 - [ ] Fix some typos:
   - [ ] Gen 11:13: ἔξησε -> ἔζησε (in source)
   - [ ] Gen 11:17: ἔξησεν -> ἔζησεν (in source)
