@@ -40,6 +40,8 @@ The main files in this repo are `Brenton.tex` and `Brenton.pdf`. If you want to 
 ## Source and License
 The digital Brenton LXX text is sourced from [ebible.org](https://ebible.org/Scriptures/details.php?id=grcbrent) and is in the public domain. (The exact source for the files in `grcbrent_xetex` is the [ebible XeTeX file](https://ebible.org/Scriptures/grcbrent_xetex.zip). You can use the script `concat.py` to merge each individual book into one file (concatenated.tex) as we did here.) All of the code and `.tex` formatting are licensed [CC0-1.0 (public domain)](https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project/blob/main/LICENSE) and may be used and copied freely. May God get all the glory! 
 
+https://ebible.org/details.php?id=grcbrent
+
 The New Testament is the [OpenGNT](https://opengnt.com/).  I obtained the source from EliranWong's GitHub repo for the project [here](https://github.com/eliranwong/OpenGNT). This
 project aims to be an open source NA Equivelent NT edition. Open Greek New Testament Project by [Eliran Wong](https://marvel.bible/) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
  
@@ -52,6 +54,18 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
   - [ ] Gen 11:13: ἔξησε -> ἔζησε (in source)
   - [ ] Gen 11:17: ἔξησεν -> ἔζησεν (in source)
   - [ ] Gen 14:22: Κύπιον -> Κύριον (in source)
+  - [ ] Gen 15:2: Δέγει -> Λέγιε (in source)
+- [ ] 9p font
+  - Reminder: Don't adjust the margins in snowfall this time.
+  - [x] Font size
+  - [x] Chapter spacing
+  - [x] λέγοντες - ΑΠΟΚΑΛΥΨΙΣ ΙΩΑΝΝΟΥ 7:12
+  - [x] Dropcaps
+  - [ ] General spacing
+  - [-] End of chapter spacings
+    - ΜΑΚΚΑΒΑΙΩΝ Αʹ 16:24 one word on last page. - Probably not worth doing anything
+    - ΖΑΧΑΡΙΑΣ 14:21 nothing on last page - Maybe not worth doing anything
+    - ΑΜΒΑΚΟΥΜ 3:19 nothing on last page - Maybe not worth doing anything
 
 ## First Printing TODO: Jesse
 - [x] Add book names to the running header

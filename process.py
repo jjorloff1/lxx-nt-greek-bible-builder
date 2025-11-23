@@ -106,7 +106,7 @@ def toc_section(section_title):
 \makeatletter
 \renewcommand{\tableofcontents}{\@starttoc{toc}}
 \makeatother
-\large\tableofcontents
+\tableofcontents
 \end{multicols}
 \pagestyle{fancy}
 
@@ -183,6 +183,7 @@ def process_latex(latex):
     latex = re.sub(r'\n\\VS\{2\}(ὁπότε ἐνεπύρισε .*?\.)', r' \1', latex) # Remove verse number from Psalm 59 header
     latex = re.sub(r'ΠΡΟΣΕΥΧ (ἈΜΒΑΚΟΥΜ)', r'ΠΡΟΣΕΥΧΗ \1', latex) # Fix missing eta from Habakkuk 3:1
     latex = re.sub(r'\n\\VS\{23\}Ἔφη· ', r"\n\n\\vs{23}Ἔφη· ", latex) # Spacing of the following poetry block looks better with this starting a new paragraph.
+    latex = re.sub(r'\n\\VS\{12\}λέγοντες· \n', r"\n\n\\vs{12}λέγοντες· \n", latex) # Spacing of the following poetry block looks better with this starting a new paragraph.
 
     # Set up chapter names
     latex = re.sub(r'\{\\MT (.*)', r'\\def\\book{\1}\n\\biblebook{\1}', latex, flags=re.M)

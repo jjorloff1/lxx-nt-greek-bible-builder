@@ -1,6 +1,6 @@
 % !TeX program = lualatex
 % Layout
-\documentclass[8pt,openany]{extbook}
+\documentclass[9pt,openany]{extbook}
 \usepackage[paperwidth=6in,paperheight=9in,top=0.25in,bottom=0.5in,left=0.38in,right=0.38in,bindingoffset=0.24in,includehead,headsep=7pt]{geometry}
 \usepackage{setspace} % for line spacing
 \usepackage{microtype} % helps with formatting
@@ -18,9 +18,10 @@
 
 % Define colors
 \usepackage{xcolor}
-\definecolor{bookheadingcolor}{HTML}{9B3A3F}
-\definecolor{versenumbercolor}{HTML}{909090}
-\definecolor{altchaptercolor}{HTML}{1C2D5C}
+% \definecolor{bookheadingcolor}{HTML}{9B3A3F} % 9B3A3F - Deep red
+\definecolor{bookheadingcolor}{HTML}{000000} % 000000 - Pure black for B&W printing
+\definecolor{versenumbercolor}{HTML}{909090} % 909090 - Grey
+\definecolor{altchaptercolor}{HTML}{1C2D5C} % Unused, I think?
 
 % % Use a different font for Greek (with Latin fallback)
 % % https://tex.stackexchange.com/a/619560/319804
@@ -113,7 +114,7 @@
 \renewcommand{\ch}[1]{%
   \setcounter{mychapter}{#1}%
   \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%
-  \leavevmode\llap{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}\hspace*{2.3em}}}%
+  \leavevmode\llap{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}\hspace*{2em}}}%
 }
 
 \usepackage{tikz}
@@ -137,10 +138,10 @@
   \checkoddpage
   \ifoddpage
     \tikz[remember picture] \coordinate (here);%
-    \rightabsblock{13.75cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}}%
+    \rightabsblock{13.68cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}}%
   \else
     \tikz[remember picture] \coordinate (here);%
-    \rightabsblock{14.26cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}}%
+    \rightabsblock{14.28cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{#1}}}}%
   \fi
 }
 
