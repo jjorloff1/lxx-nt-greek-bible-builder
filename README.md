@@ -76,6 +76,7 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
 - [ ] Options to consider
   - [ ] Consider not printing with LXX, or making it a flag/version
   - [ ] Consider slightly wider page width 6" -> 6.5"?
+- [ ] Acknolwedge those who helped: Cody Weber, Juan Arambula, Wife
 
 ## First Printing TODO: Jesse
 - [x] Add book names to the running header
