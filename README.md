@@ -55,13 +55,20 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
   - [x] Update concat and process
   - [x] Fix TOC Spacing
 - [x] Numbered books should consistently use Αʹ or Α.
-- [ ] Fix some typos:
-  - [ ] Gen 11:13: ἔξησε -> ἔζησε (in source)
-  - [ ] Gen 11:17: ἔξησεν -> ἔζησεν (in source)
-  - [ ] Gen 14:22: Κύπιον -> Κύριον (in source)
-  - [ ] Gen 15:2: Δέγει -> Λέγιε (in source)
-  - [ ] Gen 16:2 ὑπήκουσελ -> υπηκουσεν
-  - [ ] Mannasah 1:1: παντοκράτωπ -> παντοκράτωρ
+- [ ] Script the fixing of typos. Examples:
+  - Examples:
+    - Gen 11:13: ἔξησε -> ἔζησε (in source)
+    - Gen 11:17: ἔξησεν -> ἔζησεν (in source)
+    - Gen 14:22: Κύπιον -> Κύριον (in source)
+    - Gen 15:2: Δέγει -> Λέγιε (in source)
+    - Gen 16:2 ὑπήκουσελ -> υπηκουσεν
+    - Mannasah 1:1: παντοκράτωπ -> παντοκράτωρ
+  - [x] Script to identify typos (git@github.com:jjorloff1/brenton-lxx-error-finder.git)
+    - [x] Script to correct typos in this repo
+    - [ ] Copy corrected documents to this repo
+  - [ ] υ-ν and ν-υ at end of words could be valid.  Accenting can help to detect.  Example: ΒΑΣΙΛΕΙΩΝ Δ 21:2	προσώπον	προσώπου
+    - [ ] What other similar transformations wouldn't be detectable by word comparisons? τὴν τῆς
+  - [ ] investigate verse number positions: Deut 1:31, 4:26,
 - [x] 9p font
   - Reminder: Don't adjust the margins in snowfall this time.
   - [x] Font size
@@ -73,10 +80,13 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
     - ΜΑΚΚΑΒΑΙΩΝ Αʹ 16:24 one word on last page. - Probably not worth doing anything
     - ΖΑΧΑΡΙΑΣ 14:21 nothing on last page - Maybe not worth doing anything
     - ΑΜΒΑΚΟΥΜ 3:19 nothing on last page - Maybe not worth doing anything
+- [ ] Fix Versing of ΨΑΛΜΟΙ 77:53 by moving the last 3 words up a verse in source document (confirmed as in Rahlf, Swete)
+
 - [ ] Options to consider
   - [ ] Consider not printing with LXX, or making it a flag/version
   - [ ] Consider slightly wider page width 6" -> 6.5"?
-- [ ] Acknolwedge those who helped: Cody Weber, Juan Arambula, Wife
+- [ ] Acknolwedge those who helped: Cody Weber, Juan Arambula, Andrew DeWitt, Wife
+- [ ] Consider dropcaps in Prolog and ch 1 of ΣΟΦΙΑ ΣΕΙΡΑΧ.
 
 ## First Printing TODO: Jesse
 - [x] Add book names to the running header
