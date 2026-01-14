@@ -55,7 +55,7 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
   - [x] Update concat and process
   - [x] Fix TOC Spacing
 - [x] Numbered books should consistently use Αʹ or Α.
-- [ ] Script the fixing of typos. Examples:
+- [x] Script the fixing of typos. Examples:
   - Examples:
     - Gen 11:13: ἔξησε -> ἔζησε (in source)
     - Gen 11:17: ἔξησεν -> ἔζησεν (in source)
@@ -65,8 +65,8 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
     - Mannasah 1:1: παντοκράτωπ -> παντοκράτωρ
   - [x] Script to identify typos (git@github.com:jjorloff1/brenton-lxx-error-finder.git)
     - [x] Script to correct typos in this repo
-    - [ ] Copy corrected documents to this repo
-  - [ ] υ-ν and ν-υ at end of words could be valid.  Accenting can help to detect.  Example: ΒΑΣΙΛΕΙΩΝ Δ 21:2	προσώπον	προσώπου
+    - [x] Copy corrected documents to this repo
+  - [x] υ-ν and ν-υ at end of words could be valid.  Accenting can help to detect.  Example: ΒΑΣΙΛΕΙΩΝ Δ 21:2	προσώπον	προσώπου
     - [ ] What other similar transformations wouldn't be detectable by word comparisons? τὴν τῆς
   - [ ] investigate verse number positions: Deut 1:31, 4:26,
 - [x] 9p font
