@@ -68,7 +68,10 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
     - [x] Copy corrected documents to this repo
   - [x] υ-ν and ν-υ at end of words could be valid.  Accenting can help to detect.  Example: ΒΑΣΙΛΕΙΩΝ Δ 21:2	προσώπον	προσώπου
     - [ ] What other similar transformations wouldn't be detectable by word comparisons? τὴν τῆς
-  - [ ] investigate verse number positions: Deut 1:31, 4:26,
+  - [ ] investigate verse number positions: 
+    * Deut 1:31, 4:26,
+    * 35763	ΜΑΚΚΑΒΑΙΩΝ Β 7:9
+    * Psalm 77:62
 - [x] 9p font
   - Reminder: Don't adjust the margins in snowfall this time.
   - [x] Font size
@@ -81,6 +84,8 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
     - ΖΑΧΑΡΙΑΣ 14:21 nothing on last page - Maybe not worth doing anything
     - ΑΜΒΑΚΟΥΜ 3:19 nothing on last page - Maybe not worth doing anything
 - [ ] Fix Versing of ΨΑΛΜΟΙ 77:53 by moving the last 3 words up a verse in source document (confirmed as in Rahlf, Swete)
+- [ ] Check inter book headings, like Isaiah 13, 15 and Those in Sirach (i.e. ch 1 (ΣΟΦΙΑ ΣΕΙΡΑΧ.), ch 30)
+- [ ] ΠΑΡΑΛΕΙΠΟΜΕΝΩΝ Α 16:8	Ὠδη	ᾠδή v8-36 is a poetry block
 
 - [ ] Options to consider
   - [ ] Consider not printing with LXX, or making it a flag/version
