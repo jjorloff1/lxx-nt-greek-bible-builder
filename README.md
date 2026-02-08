@@ -76,23 +76,21 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
   - [x] General spacing
 - [x] Acknolwedge those who helped: Cody Weber, Juan Arambula, Andrew DeWitt, Wife
 - [ ] End of chapter spacings
-  - ΜΑΚΚΑΒΑΙΩΝ Αʹ 16:24 one word on last page. - Probably not worth doing anything
-  - ΖΑΧΑΡΙΑΣ 14:21 nothing on last page - Maybe not worth doing anything
-  - ΑΜΒΑΚΟΥΜ 3:19 nothing on last page - Maybe not worth doing anything
+  - [ ] ΜΑΚΚΑΒΑΙΩΝ Αʹ 16:24 one word on last page. - Probably not worth doing anything
+  - [ ] ΖΑΧΑΡΙΑΣ 14:21 nothing on last page - Maybe not worth doing anything
+  - [x] ΑΜΒΑΚΟΥΜ 3:19 nothing on last page - Maybe not worth doing anything
   - Matthew end, one line on last page
-- [ ] Check inter book headings, like Isaiah 13, 15 and Those in Sirach (i.e. ch 1 (ΣΟΦΙΑ ΣΕΙΡΑΧ.), ch 30)
+- [x] Check inter book headings, like Isaiah 13, 15 and Those in Sirach (i.e. ch 1 (ΣΟΦΙΑ ΣΕΙΡΑΧ.), ch 30)
 - [x] ΘΡΗΝΟΙ ΙΕΡΕΜΙΟΥ: bold the hebrew letter names... OR should this be italics?
-- [ ] ΠΑΡΑΛΕΙΠΟΜΕΝΩΝ Α 16:8	Ὠδη	ᾠδή v8-36 is a poetry block
-- [ ] What other similar transformations wouldn't be detectable by word comparisons? τὴν τῆς
-- [ ] investigate verse number positions: 
-    * Deut 1:31, 4:26,
-    * 35763	ΜΑΚΚΑΒΑΙΩΝ Β 7:9
-    * Psalm 77:62
-    * Fix Versing of ΨΑΛΜΟΙ 77:53 by moving the last 3 words up a verse in source document (confirmed as in Rahlf, Swete)
-- [ ] Options to consider
+- [-] ΠΑΡΑΛΕΙΠΟΜΕΝΩΝ Α 16:8	Ὠδη	ᾠδή v8-36 is a poetry block
+- [x] investigate verse number positions: 
+    - [x] Deut 1:31, 4:26,
+    - [x] 35763	ΜΑΚΚΑΒΑΙΩΝ Β 7:9
+    - [x] Fix Versing of ΨΑΛΜΟΙ 77
+- [x] Consider dropcaps in Prolog and ch 1 of ΣΟΦΙΑ ΣΕΙΡΑΧ.
+- [x] Options to consider
   - [x] Consider not printing with LXX, or making it a flag/version
-  - [ ] Consider slightly wider page width 6" -> 6.5"?
-- [ ] Consider dropcaps in Prolog and ch 1 of ΣΟΦΙΑ ΣΕΙΡΑΧ.
+  - [-] Consider slightly wider page width 6" -> 6.5"?
 
 ## First Printing TODO: Jesse
 - [x] Add book names to the running header
