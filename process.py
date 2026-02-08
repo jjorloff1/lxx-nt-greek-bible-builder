@@ -15,6 +15,15 @@ lxx_to_mas_psalms = {"1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6",
                      "127": "128", "128": "129", "129": "130", "130": "131", "131": "132", "132": "133", "133": "134", "134": "135", "135": "136", 
                      "136": "137", "137": "138", "138": "139", "139": "140", "140": "141", "141": "142", "142": "143", "143": "144", "144": "145", 
                      "145": "146", "146": "147:1-11", "147": "147:12-20", "148": "148", "149": "149", "150": "150", "151": None}
+
+HEBREW_ACROSTIC_LETTERS = (
+    'ΤΣΑΔΗ', 'ΣΑΜΕΧ', 'ΔΑΛΕΘ', 'ΓΙΜΕΛ', 'ΛΑΜΕΔ',
+    'ΡΗΧΣ', 'ΧΣΕΝ', 'ΝΟΥΝ', 'ΟΥΑΥ', 'ΖΑΙΝ', 'ΑΛΕΦ',
+    'ΤΗΘ', 'ΒΗΘ', 'ΜΗΜ', 'ΙΩΔ', 'ΧΑΦ', 'ΚΩΦ', 'ΘΑΥ', 'ΑΙΝ',
+    'ΗΘ', 'ΦΗ',
+    'Η',
+)
+
 first_chapter_pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\VerseOne\{1\}\s*)([Α-Ωα-ω\u0370-\u03FF\u1F00-\u1FFF])([^\s]*)'
 
 ot_title_page = r"""\cleardoublepage
@@ -136,6 +145,29 @@ def psalmchap_pp_replacer(match):
     masch_val = get_maschal_value(psalm_num)
     return f'\\ch{{{psalm_num}}}{{{masch_val}}}'
 
+def boldify_acrostic_letters(latex):
+    """Wrap Hebrew acrostic letter names in \\textbf{} within Lamentations."""
+    book_marker = r'\def\book{ΘΡΗΝΟΙ ΙΕΡΕΜΙΟΥ}'
+    lam_start = latex.find(book_marker)
+    if lam_start == -1:
+        return latex
+
+    next_book = latex.find(r'\def\book{', lam_start + len(book_marker))
+    lam_end = next_book if next_book != -1 else len(latex)
+
+    before = latex[:lam_start]
+    lam_section = latex[lam_start:lam_end]
+    after = latex[lam_end:]
+
+    letters_pattern = '|'.join(HEBREW_ACROSTIC_LETTERS)
+    lam_section = re.sub(
+        r'(' + letters_pattern + r')\. ',
+        r'\\textbf{\1.} ',
+        lam_section
+    )
+
+    return before + lam_section + after
+
 def process_latex(latex):
     # Apply transformations to the text
     latex = re.sub(r'[“|”]',"", latex) # eliminate custom quotes, must be before first chapter
@@ -183,7 +215,10 @@ def process_latex(latex):
 
     # Keep psalm headings together with next verse
     latex = re.sub(r'\\psalmheading(\{\\ch\{\d+\}.*?\})(\n|)(.*?\n)', r'\\begin{psalmheading}\1\2\3\\end{psalmheading}\n', latex, flags=re.M)
-    
+
+    # Bold Hebrew acrostic letter names in Lamentations
+    latex = boldify_acrostic_letters(latex)
+
     return latex
 
 def main():

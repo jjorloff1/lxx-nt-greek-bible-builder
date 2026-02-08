@@ -73,13 +73,15 @@ project aims to be an open source NA Equivelent NT edition. Open Greek New Testa
   - [x] Chapter spacing
   - [x] λέγοντες - ΑΠΟΚΑΛΥΨΙΣ ΙΩΑΝΝΟΥ 7:12
   - [x] Dropcaps
-  - [-] General spacing
-  - [-] End of chapter spacings
-    - ΜΑΚΚΑΒΑΙΩΝ Αʹ 16:24 one word on last page. - Probably not worth doing anything
-    - ΖΑΧΑΡΙΑΣ 14:21 nothing on last page - Maybe not worth doing anything
-    - ΑΜΒΑΚΟΥΜ 3:19 nothing on last page - Maybe not worth doing anything
+  - [x] General spacing
 - [x] Acknolwedge those who helped: Cody Weber, Juan Arambula, Andrew DeWitt, Wife
+- [ ] End of chapter spacings
+  - ΜΑΚΚΑΒΑΙΩΝ Αʹ 16:24 one word on last page. - Probably not worth doing anything
+  - ΖΑΧΑΡΙΑΣ 14:21 nothing on last page - Maybe not worth doing anything
+  - ΑΜΒΑΚΟΥΜ 3:19 nothing on last page - Maybe not worth doing anything
+  - Matthew end, one line on last page
 - [ ] Check inter book headings, like Isaiah 13, 15 and Those in Sirach (i.e. ch 1 (ΣΟΦΙΑ ΣΕΙΡΑΧ.), ch 30)
+- [x] ΘΡΗΝΟΙ ΙΕΡΕΜΙΟΥ: bold the hebrew letter names... OR should this be italics?
 - [ ] ΠΑΡΑΛΕΙΠΟΜΕΝΩΝ Α 16:8	Ὠδη	ᾠδή v8-36 is a poetry block
 - [ ] What other similar transformations wouldn't be detectable by word comparisons? τὴν τῆς
 - [ ] investigate verse number positions: 
