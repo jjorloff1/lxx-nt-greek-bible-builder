@@ -1,4 +1,4 @@
-import re, sys, argparse
+import re, sys, argparse, os
 
 lxx_to_mas_psalms = {"1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": ["9", "10"], "10": "11", "11": "12", "12": "13", 
                      "13": "14", "14": "15", "15": "16", "16": "17", "17": "18", "18": "19", "19": "20", "20": "21", "21": "22", "22": "23", "23": "24", 
@@ -16,56 +16,6 @@ lxx_to_mas_psalms = {"1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6",
                      "136": "137", "137": "138", "138": "139", "139": "140", "140": "141", "141": "142", "142": "143", "143": "144", "144": "145", 
                      "145": "146", "146": "147:1-11", "147": "147:12-20", "148": "148", "149": "149", "150": "150", "151": None}
 first_chapter_pattern = r'(\\par \}\s*(?:\\ChapOne\{1\}|\\OneChap)\s*\{\\PP \\VerseOne\{1\}\s*)([Α-Ωα-ω\u0370-\u03FF\u1F00-\u1FFF])([^\s]*)'
-
-preface = r"""\cleardoublepage
-\begin{titlepage}
-  \begin{center}
-    \textcolor{bookheadingcolor}{\Huge Preface}\par
-  \end{center}
-  \vspace{2em}
-  
-  This project was undertaken in love and respect for the Bible, with a desire to have an accessible and
-  beautiful Greek Bible available in print to anyone who would like one. While there are many great Greek
-  New Testaments available in print, the Septuagint has been less accessible, particularly in a format that
-  is both compact and minimalist. Most of the Septuagints available in print are quite large. Additionally,
-  there are almost no complete Greek Bibles available to purchase for a reasonable price. I have undertaken
-  this project for those out there who, like me, want to take a physical Greek Bible along 
-  with them where ever they want to go.
-
-  When I started this project, I went hunting for open and public domain editions of the Septuagint and the NT
-  that I could use as the texts for this Bible. While there are several great options out there, I settled on
-  the Brenton Septuagint and the OpenGNT new testament. The reason for choosing Brenton's Septuagint was simple:
-  I found a great open source project that had already digitized the text and prepared it for print: 
-  https://github.com/mrgreekgeek/Brenton-LXX-Latex-print-project/. Starting with this baseline, I was able to
-  style the text in a way that I liked. Then I had to find and prepare a NT Text.
-
-  For the NT I chose the Open GNT (https://opengnt.com/) which was prepared by Eliran Wong and released under
-  the Creative Commons Attribution 4.0 International License (CC BY 4.0). This project was created "to offer a 
-  FREE NA-equivalent text of Greek New Testament, compiled from open-resources" and provided access to the text
-  in a format that I could adapt to my needs.
-
-  As for formatting, I was inspired by some of the beautiful minimalist reader Bibles available in English. As
-  much as possible, I wanted to keep the text front and center, eliminating distractions and unnecessary elements.
-  I have tried to mitigate the distraction from things like section headings, spacing between chapters, and even
-  chapter numbers to some degree. I ultimately decided to leave verse numbers in place, because I think navigating
-  the Old Testament may have been more difficult without them; however, I tried to minimize their visual impact.
-  My goal is to facilitate a novel-like reading experience, free of distractions.
-
-  The source code that I have used to extract, process, and format the texts used for this Bible is available 
-  free of charge at https://github.com/jjorloff1/lxx-nt-greek-bible-builder.
-
-  I hope that this Greek Bible will serve you well as you study and meditate on the Scriptures.
-  Glory to God!
-
-  \vfill
-  \begin{flushright}
-    {\large\textit{Jesse Orloff}\par}
-    {\large www.jesseorloff.com\par}
-    {\large August 2025\par}
-  \end{flushright}  
-\end{titlepage}
-
-"""
 
 ot_title_page = r"""\cleardoublepage
 \thispagestyle{empty}
@@ -124,6 +74,21 @@ def lettrine_replacer(match):
     # Use your color and lettrine settings
     return f'{prefix}\\lettrine[lines=2, loversize=0.2, nindent=0em, findent=.25em]{{\\textcolor{{bookheadingcolor}}{{{first_letter}}}}}{{{rest_of_word}}}'
 
+def read_tex_file(filename):
+    """Read a .tex file from the frontmatter directory."""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    filepath = os.path.join(script_dir, "frontmatter", filename)
+    with open(filepath, "r", encoding="utf-8") as f:
+        return f.read()
+
+def frontmatter_section():
+    """Return the complete front matter content (copyright through introduction)."""
+    s = ""
+    s += read_tex_file("copyright.tex")
+    s += read_tex_file("preface.tex")
+    s += read_tex_file("introduction.tex")
+    return s
+
 def get_preamble_with_color(use_color=False):
     """Generate preamble line with appropriate color setting"""
     if use_color:
@@ -139,7 +104,7 @@ def title_page(title, author=None, include_preamble=False, use_color=False):
         s += get_preamble_with_color(use_color)
     else:
         s += f"\\end{{spacing}}\n"
-        
+
     s += f"\\title{{{title}}}\n"
     if author:
         s += f"\\author{{{author}}}\n"
@@ -148,6 +113,7 @@ def title_page(title, author=None, include_preamble=False, use_color=False):
     s += f"\\date{{}}\n\n"
     if include_preamble:
         s += f"\\begin{{document}}\n"
+        s += f"\\frontmatter\n"
     s += f"\\begin{{spacing}}{{1.1}}\n\\maketitle\n\n"
     return s
 
@@ -240,10 +206,12 @@ def main():
             with open(args.ot, "r", encoding="utf-8") as otfile, open(args.nt, "r", encoding="utf-8") as ntfile:
                 ot_latex = process_latex(otfile.read())
                 nt_latex = process_latex(ntfile.read())
-                # Main title page (with preamble)
+                # Main title page (with preamble) and front matter
                 output.write(title_page(main_title, None, include_preamble=True, use_color=args.color))
-                output.write(preface)
+                output.write(frontmatter_section())
                 output.write(toc_section("Table of Contents"))
+                # Switch to arabic page numbering starting at 1
+                output.write("\\mainmatter\n")
                 # OT section
                 output.write(ot_title_page)
                 output.write(ot_latex)
@@ -256,8 +224,9 @@ def main():
             with open(args.ot, "r", encoding="utf-8") as otfile:
                 ot_latex = process_latex(otfile.read())
                 output.write(title_page(ot_title, ot_author, include_preamble=True, use_color=args.color))
-                output.write(preface)
+                output.write(frontmatter_section())
                 output.write(toc_section("Table of Contents"))
+                output.write("\\mainmatter\n")
                 output.write(ot_latex)
                 output.write(FOOT)
         elif args.nt:
@@ -265,8 +234,9 @@ def main():
             with open(args.nt, "r", encoding="utf-8") as ntfile:
                 nt_latex = process_latex(ntfile.read())
                 output.write(title_page(nt_title, nt_author, include_preamble=True, use_color=args.color))
-                output.write(preface)
+                output.write(frontmatter_section())
                 output.write(toc_section("Table of Contents"))
+                output.write("\\mainmatter\n")
                 output.write(nt_latex)
                 output.write(FOOT)
         else:

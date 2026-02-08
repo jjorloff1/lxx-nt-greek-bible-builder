@@ -36,12 +36,13 @@
 \setlength{\parskip}{0pt}
 
 \makeatletter
-\renewcommand{\maketitle}{
-  \begin{titlepage}
-    \centering
-    \vspace*{3cm}
-    {\Huge \@title \par}
-  \end{titlepage}
+\renewcommand{\maketitle}{%
+  \thispagestyle{empty}%
+  {\centering
+  \vspace*{3cm}
+  {\Huge \@title \par}
+  }%
+  \newpage
 }
 \makeatother
 
