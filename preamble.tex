@@ -146,6 +146,28 @@
   \fi
 }
 
+\newcommand{\sectionheading}[1]{%
+  \par
+  \vspace{0.75\baselineskip}%
+  \begingroup
+    \renewcommand{\ch}[1]{%
+      \setcounter{mychapter}{##1}%
+      \markboth{\book\ \themychapter:1}{\book\ \themychapter:1}%
+      \tikz[remember picture] \coordinate (here);%
+      \checkoddpage
+      \ifoddpage
+        \rightabsblock{13.68cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{##1}}}}%
+      \else
+        \rightabsblock{14.28cm}{\textcolor{bookheadingcolor}{\textbf{\oldch{##1}}}}%
+      \fi
+    }%
+    {\centering\textbf{#1}\par}%
+  \endgroup
+  \nopagebreak
+  \vspace{0.5\baselineskip}%
+  \nopagebreak
+}
+
 \usepackage{lettrine}
 \usepackage{calc}
 

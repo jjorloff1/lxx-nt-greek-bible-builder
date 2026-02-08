@@ -1,4 +1,5 @@
 import re, sys, argparse, os
+from wrap_section_headings import wrap_headings
 
 lxx_to_mas_psalms = {"1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": ["9", "10"], "10": "11", "11": "12", "12": "13", 
                      "13": "14", "14": "15", "15": "16", "16": "17", "17": "18", "18": "19", "19": "20", "20": "21", "21": "22", "22": "23", "23": "24", 
@@ -239,7 +240,7 @@ def main():
         if args.ot and args.nt:
             # Full Bible
             with open(args.ot, "r", encoding="utf-8") as otfile, open(args.nt, "r", encoding="utf-8") as ntfile:
-                ot_latex = process_latex(otfile.read())
+                ot_latex = wrap_headings(process_latex(otfile.read()))
                 nt_latex = process_latex(ntfile.read())
                 # Main title page (with preamble) and front matter
                 output.write(title_page(main_title, None, include_preamble=True, use_color=args.color))
@@ -257,7 +258,7 @@ def main():
         elif args.ot:
             # OT only
             with open(args.ot, "r", encoding="utf-8") as otfile:
-                ot_latex = process_latex(otfile.read())
+                ot_latex = wrap_headings(process_latex(otfile.read()))
                 output.write(title_page(ot_title, ot_author, include_preamble=True, use_color=args.color))
                 output.write(frontmatter_section())
                 output.write(toc_section("Table of Contents"))

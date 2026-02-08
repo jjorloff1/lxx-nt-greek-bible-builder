@@ -5,3 +5,4 @@ old/
 *.pdf
 temp/
 *.local.json
+__pycache__
