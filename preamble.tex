@@ -211,10 +211,10 @@
         \vspace{\baselineskip}
         \Needspace{6\baselineskip}
         \begin{center}
-          {\upshape{\Large\textbf{\textcolor{bookheadingcolor}{ΨΑΛΜΟΣ ##1}}}}\\
-          \ifthenelse{\equal{##2}{}}%
-            {}% If ##2 is blank, do nothing
-            {\itshape{\textbf{\textcolor{bookheadingcolor}{(ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ##2)}}}}% If not blank, render the line
+          {\upshape{\Large\textbf{\textcolor{bookheadingcolor}{ΨΑΛΜΟΣ ##1}}}}%
+          \ifthenelse{\equal{##2}{} \OR \equal{##1}{##2}}%
+            {}% Omit blank or matching Masoretic references
+            {\\\itshape{\textbf{\textcolor{bookheadingcolor}{(ΚΑΤΑ ΜΑΣΟΡΙΤΙΚΟΝ ##2)}}}}% Otherwise render the subheading on its own line
         \end{center}
       }
       \newcommand{\masch}[1]{%
